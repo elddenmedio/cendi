@@ -1,0 +1,45 @@
+:host {
+    section {
+         ::ng-deep {
+            .p-datatable th {
+                background-color: #f6f6f6;
+                text-align: center;
+                &:hover {
+                    background: #fac9da !important
+                }
+            }
+            .p-datatable-tbody>tr.p-highlight,
+            .p-datatable-hoverable-rows .p-datatable-tbody>tr:not(.p-highlight):hover {
+                color: #ffffff;
+            }
+            .p-datatable .p-datatable-tbody td {
+                padding: 0.5rem 1rem;
+                .p-tag {
+                    font-weight: 100;
+                    text-transform: capitalize;
+                    &.opera-group1 {
+                        background-color: #287D30;
+                    }
+                    &.opera-group2 {
+                        background-color: #7BDD84;
+                    }
+                    &.opera-group3 {
+                        background-color: #CE33FF;
+                    }
+                    &.opera-group4 {
+                        background-color: #7BACDD;
+                    }
+                    &.opera-group5 {
+                        background-color: #3399FF;
+                    }
+                    &.opera-group6 {
+                        background-color: #FF9C33;
+                    }
+                    &.opera-group7 {
+                        background-color: #7D2850;
+                    }
+                }
+            }
+        }
+    }
+}

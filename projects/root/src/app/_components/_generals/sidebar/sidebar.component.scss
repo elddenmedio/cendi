@@ -1,0 +1,28 @@
+:host {
+     ::ng-deep {
+        .p-slidemenu {
+            // width: 100% !important;
+            position: absolute;
+            float: left;
+            ul {
+                width: 100% !important;
+            }
+            .p-slidemenu-content {
+                // height: 90vh !important;
+                height: calc(100vh - 6.5rem) !important;
+            }
+            .p-slidemenu-wrapper {
+                width: 100% !important;
+            }
+            .p-menuitem {
+                 :active {
+                    color: #ffffff;
+                    background-color: #fac9da;
+                }
+            }
+            @media screen and(max-width: 1000px) {
+                width: 4.5rem !important;
+            }
+        }
+    }
+}

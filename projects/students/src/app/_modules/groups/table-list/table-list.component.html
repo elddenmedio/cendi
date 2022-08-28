@@ -1,0 +1,18 @@
+<section>
+    <div class="grid">
+        <div class="col-12">
+            <div class="opera-f-t-r">
+                <opera-export-print [settings]="settingsPrintExport"></opera-export-print>
+            </div>
+            <opera-filter *ngIf="displayFilter" [settings]="filters" (filterSelected)="filtersAction($event)"></opera-filter>
+        </div>
+        <div class="col-12" id="printElement">
+            <ng-container *ngIf="!displayTemplate">
+                <opera-table-no-results></opera-table-no-results>
+            </ng-container>
+            <ng-container *ngIf="displayTemplate">
+                <!-- [rowsPerPageOptions]="[10,20,30]" -->
+            </ng-container>
+        </div>
+    </div>
+</section>

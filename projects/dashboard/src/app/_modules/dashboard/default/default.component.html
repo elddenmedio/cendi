@@ -1,0 +1,32 @@
+<section class="grid">
+    <div class="col-12 md:col-4">
+        <div class="card">
+            <h5>Radar</h5>
+            <p-chart type="radar" [data]="radar" [options]="chartOptions"></p-chart>
+        </div>
+    </div>
+    <div class="col-12 md:col-4">
+        <div class="card">
+            <h5>Pie</h5>
+            <p-chart type="pie" [data]="pie" [options]="chartOptions"></p-chart>
+        </div>
+    </div>
+    <div class="col-12 md:col-4">
+        <div class="card">
+            <h5>Polar</h5>
+            <p-chart type="polarArea" [data]="polar" [options]="chartOptions"></p-chart>
+        </div>
+    </div>
+    <div class="col-12 md:col-4">
+        <div class="card">
+            <h5>Doughnut</h5>
+            <p-chart type="doughnut" [data]="donut" [options]="chartOptions" [style]="{'width': '40%'}"></p-chart>
+        </div>
+    </div>
+    <div class="col-12 md:col-8">
+        <div class="card">
+            <h5>Multi Axis</h5>
+            <p-chart type="bar" [data]="multiAxisData" [options]="multiAxisOptions"></p-chart>
+        </div>
+    </div>
+</section>

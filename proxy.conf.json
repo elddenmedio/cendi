@@ -1,0 +1,8 @@
+{
+    "/v1/*": {
+        "target": "http://localhost/mordor-cendi/index.php",
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "debug"
+    }
+}

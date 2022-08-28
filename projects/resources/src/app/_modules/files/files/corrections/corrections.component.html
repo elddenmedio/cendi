@@ -1,0 +1,25 @@
+<section>
+    <opera-export-print *ngIf="!_service" [displayExport]="true" [displayPrint]="false"></opera-export-print>
+    <div class="grid opera-ellipsis">
+        <div class="col-12 sm:col-1 md:col-1 lg:col-1 xl:col-1" [style]="{'max-width': '9vw'}">
+            CCT
+        </div>
+        <div class="col-12 sm:col-3 md:col-3 lg:col-3 xl:col-3" [style]="{'max-width': '11vw'}">
+            Plantel
+        </div>
+        <div class="col-12 sm:col-3 md:col-3 lg:col-3 xl:col-3" [style]="{'max-width': '21vw'}">
+            Nombre de Menor
+        </div>
+        <div class="col-12 sm:col-1 md:col-1 lg:col-1 xl:col-1" [style]="{'max-width': '14vw'}">
+            Movimiento
+        </div>
+        <div class="col-12 sm:col-2 md:col-2 lg:col-2 xl:col-2" [style]="{'max-width': '12vw'}">
+            Dice
+        </div>
+        <div class="col-12 sm:col-2 md:col-2 lg:col-2 xl:col-2" [style]="{'max-width': '12vw'}">
+            Debe Decir
+        </div>
+        <div class="col-12 o-h-15"></div>
+    </div>
+    <opera-dynamicForm [formTemplate]="formTemplate" [dynamicButtons]="buttonsDynamic" (formValue)="saveForm($event)"></opera-dynamicForm>
+</section>

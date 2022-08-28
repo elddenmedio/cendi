@@ -1,0 +1,303 @@
+<personal-info-skeleton *ngIf="skeleton"></personal-info-skeleton>
+<section *ngIf="!skeleton">
+    <form [formGroup]="userForm">
+        <div class="grid">
+            <div class="col-12">
+                <div class="opera-f-t-r" *ngIf="user">
+                    <button pButton pRipple type="button" (click)="setEdit()" label="Editar" class="p-button-outlined p-button-rounded"></button>
+                </div>
+                <ng-container *ngIf="user">
+                    <p-avatar *ngIf="user?.avatar" image="./assets/img/profiles/{{user.avatar}}" size="xlarge" shape="circle"></p-avatar>
+                    <p-avatar *ngIf="!user?.avatar" label="{{getInitials(user).toUpperCase()}}" size="xlarge" shape="circle"></p-avatar>
+                </ng-container>
+                <ng-container *ngIf="!user">
+                    <p-avatar label="OO" size="xlarge" shape="circle"></p-avatar>
+                </ng-container>
+            </div>
+            <div class="col-12" *ngIf="user">
+                {{user.name}} {{user.last_name}} {{user?.second_last_name}}
+                <p-divider *ngIf="user"></p-divider>
+            </div>
+            <div class="col-12">
+                <p-divider align="left" type="dashed">
+                    <b>Información Personal</b>
+                </p-divider>
+                <div class="grid">
+                    <div class="col-2 opera-t-a-d">
+                        <b>Nombre</b>
+                    </div>
+                    <div class="col-10 opera-t-a-l">
+                        <ng-container *ngIf="!activeForm && user">{{user.name}} {{user.last_name}} {{user?.second_last_name}}</ng-container>
+                        <ng-container *ngIf="activeForm">
+                            <div class="grid">
+                                <div class="col-12 md:col-4">
+                                    <span class="p-float-label">
+                                    <input id="float-input" type="text" pInputText formControlName="name"> 
+                                    <label for="float-input">Nombre(s)</label>
+                                </span>
+                                </div>
+                                <div class="col-12 md:col-4">
+                                    <span class="p-float-label">
+                                    <input id="float-input" type="text" pInputText formControlName="last_name"> 
+                                    <label for="float-input">Apellido</label>
+                                </span>
+                                </div>
+                                <div class="col-12 md:col-4">
+                                    <span class="p-float-label">
+                                    <input id="float-input" type="text" pInputText formControlName="second_last_name"> 
+                                    <label for="float-input">Segundo Apellido</label>
+                                </span>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                    <!-- <div class="col-2 opera-t-a-d">
+                    <b>Teléfono</b>
+                    </div>
+                    <div class="col-10 opera-t-a-l">
+                        {{user.phone}}
+                    </div> -->
+                    <ng-container formGroupName="mail">
+                        <div class="col-2 opera-t-a-d">
+                            <b>Correo Electrónico</b>
+                        </div>
+                        <div class="col-10 opera-t-a-l">
+                            <ng-container *ngIf="!activeForm && user">{{user?.mail?.mail_personal}} <span *ngIf="user?.mail?.mail_work">|</span> {{user?.mail?.mail_work}}</ng-container>
+                            <ng-container *ngIf="activeForm">
+                                <div class="grid">
+                                    <div class="col-12 md:col-4">
+                                        <span class="p-float-label">
+                                    <input id="float-input" type="text" pInputText formControlName="mail_personal"> 
+                                    <label for="float-input">Mail Personal</label>
+                                </span>
+                                    </div>
+                                    <div class="col-12 md:col-4">
+                                        <span class="p-float-label">
+                                    <input id="float-input" type="text" pInputText formControlName="mail_work"> 
+                                    <label for="float-input">Mail de Trabajo</label>
+                                </span>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="!activeForm && user">
+                        <div class="col-2 opera-t-a-d">
+                            <b>Fecha de Creación</b>
+                        </div>
+                        <div class="col-10 opera-t-a-l">
+                            {{user.created | date: 'dd/MM/yyyy HH:mm'}}
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="col-12">
+                <ng-container formGroupName="center">
+                    <p-divider align="left" type="dashed">
+                        <b>Trabajo</b>
+                    </p-divider>
+                    <div class="grid">
+                        <div class="col-2 opera-t-a-d">
+                            <b>Centro</b>
+                        </div>
+                        <div class="col-10 opera-t-a-l">
+                            <ng-container *ngIf="!activeForm && user">{{userEdit?.center?.name}}</ng-container>
+                            <ng-container *ngIf="activeForm && centers">
+                                <div class="grid">
+                                    <div class="col">
+                                        <p-dropdown class="o-w-100" optionValue="value" [options]="centers" placeholder="Seleccione centro" optionLabel="name" formControlName="center_name" (onChange)="changeCenter($event.value)" [readonly]="hasPermissions()"></p-dropdown>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
+
+                        <ng-container *ngIf="permissions">
+                            <div class="col-2 opera-t-a-d">
+                                <b>Permisos</b>
+                            </div>
+                            <div class="col-10 opera-t-a-l">
+                                <ng-container *ngIf="!activeForm && user">{{user?.level?.name}}</ng-container>
+                                <ng-container *ngIf="activeForm">
+                                    <div class="grid">
+                                        <div class="col">
+                                            <p-dropdown class="o-w-100" optionValue="permission" [options]="permissions" placeholder="Seleccione permiso" optionLabel="name" formControlName="permission" (onChange)="changePermission($event.value)"></p-dropdown>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </ng-container>
+
+                        <div class="col-2 opera-t-a-d">
+                            <b>Puesto</b>
+                        </div>
+                        <div class="col-10 opera-t-a-l">
+                            <ng-container *ngIf="!activeForm && user">{{user?.center?.position}}</ng-container>
+                            <ng-container *ngIf="activeForm">
+                                <div class="grid">
+                                    <div class="col">
+                                        <p-dropdown class="o-w-100" optionValue="value" [options]="positions" placeholder="Seleccione posición" optionLabel="name" formControlName="position" (onChange)="changePosition($event.value)"></p-dropdown>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
+
+                        <ng-container *ngIf="subjects || user?.center?.subject">
+                            <div class="col-2 opera-t-a-d">
+                                <b>Materia</b>
+                            </div>
+                            <div class="col-10 opera-t-a-l">
+                                <ng-container *ngIf="!activeForm && user">{{user.center?.subject?.abbreviation}}</ng-container>
+                                <ng-container *ngIf="activeForm && subjects">
+                                    <div class="grid">
+                                        <div class="col">
+                                            <span class="p-float-label">
+                                            <p-dropdown class="o-w-100" optionValue="id" [options]="subjects" placeholder="Seleccione materia" optionLabel="name" formControlName="subject" (onChange)="changeSubject($event.value)"></p-dropdown>
+                                            <label for="float-input">Materia</label>
+                                        </span>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </ng-container>
+
+                        <ng-container *ngIf="groups || user?.center?.group">
+                            <div class="col-2 opera-t-a-d">
+                                <b>Grupo</b>
+                            </div>
+                            <div class="col-10 opera-t-a-l">
+                                <ng-container *ngIf="!activeForm && user">{{user.center?.group?.abbreviation}} - {{user.center?.group?.name}}</ng-container>
+                                <ng-container *ngIf="activeForm && groups">
+                                    <div class="grid">
+                                        <div class="col">
+                                            <span class="p-float-label">
+                                            <p-dropdown class="o-w-100" optionValue="value" [options]="groups" placeholder="Seleccione materia" optionLabel="name" formControlName="group" (onChange)="changeGroup($event.value)"></p-dropdown>
+                                            <label for="float-input">Grupo</label>
+                                        </span>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </ng-container>
+
+                        <div class="col-2 opera-t-a-d">
+                            <b>Horarios</b>
+                        </div>
+                        <div class="col-10 opera-t-a-l">
+                            <ng-container *ngIf="!activeForm && user">Entrada: {{user?.center?.check_in | getTimecheck}} | Salida: {{user?.center?.check_out | getTimecheck}} | Descanso: {{user?.center?.check_break | getTimecheck}}</ng-container>
+                            <ng-container *ngIf="activeForm">
+                                <div class="grid">
+                                    <div class="col-12 md:col-4">
+                                        <span class="p-float-label"> 
+                                        <p-calendar [timeOnly]="true" [hourFormat]="'12'" [stepMinute]="1" inputId="timeonly" formControlName="time_from"></p-calendar>
+                                        <label for="float-input">Hora de Entrada</label>
+                                    </span>
+                                    </div>
+                                    <div class="col-12 md:col-4">
+                                        <span class="p-float-label">
+                                        <p-calendar [timeOnly]="true" [hourFormat]="'12'" [stepMinute]="1" inputId="timeonly" formControlName="time_to"></p-calendar>
+                                        <label for="float-input">Hora de Salida</label>
+                                    </span>
+                                    </div>
+                                    <div class="col-12 md:col-4">
+                                        <span class="p-float-label">
+                                        <p-calendar [timeOnly]="true" [hourFormat]="'12'" [stepMinute]="1" inputId="timeonly" formControlName="time_break"></p-calendar>
+                                        <label for="float-input">Hora de Descanso</label>
+                                    </span>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </ng-container>
+                <div class="grid">
+                    <ng-container *ngIf="!activeForm">
+                        <div class="col-2 opera-t-a-d" *ngIf="user?.partners">
+                            <b>Compañeros</b>
+                        </div>
+                        <div class="col-10 opera-t-a-l" *ngIf="user?.partners">
+                            <div class="flex align-items-center">
+                                <ng-container *ngFor="let partner of user?.partners; let i = index">
+                                    <p-chip *ngIf="!partner.avatar" class="opera-c-p" (click)="viewUser(partner.uID)" label="{{partner.name}}" styleClass="mr-2"></p-chip>
+                                    <p-chip *ngIf="partner.avatar" class="opera-c-p" (click)="viewUser(partner.uID)" label="{{partner.name}}" image="./assets/img/profiles/{{partner?.avatar}}" styleClass="mr-2"></p-chip>
+                                </ng-container>
+                            </div>
+                            <small>*Mismo puesto o titular y asistentes</small>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class="col-12" *ngIf="activeForm">
+                <button pButton pRipple (click)="createUpdateWorker(1)" type="button" [label]="getLabel()" class="p-button-outlined p-button-rounded"></button>
+            </div>
+        </div>
+    </form>
+
+    <div class="grid">
+        <div class="col-12">
+            <p-divider></p-divider>
+        </div>
+    </div>
+
+    <form [formGroup]="loginForm">
+        <div class="grid">
+            <div class="col-12">
+                <p-divider align="left" type="dashed">
+                    <b>Datos de acceso</b>
+                </p-divider>
+                <div class="grid">
+                    <div class="col-2 opera-t-a-d">
+                        <b>Username</b>
+                    </div>
+                    <div class="col-10 opera-t-a-l">
+                        <ng-container *ngIf="!activeForm && user">{{user?.username}}</ng-container>
+                        <ng-container *ngIf="activeForm">
+                            <div class="grid">
+                                <div class="col">
+                                    <span class="p-float-label">
+                                    <input id="float-input" type="text" pInputText> 
+                                    <label for="float-input">Username</label>
+                                </span>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="col-2 opera-t-a-d">
+                        <b>Contraseña</b>
+                    </div>
+                    <div class="col-10 opera-t-a-l">
+                        <ng-container *ngIf="!activeForm">******</ng-container>
+                        <ng-container *ngIf="activeForm">
+                            <div class="grid">
+                                <div class="col">
+                                    <span class="p-float-label">
+                                    <!-- <input id="float-input" type="text" pInputText>  -->
+                                    <p-password class="o-w-100" id="float-input">
+                                        <ng-template pTemplate="header">
+                                            <h6>Pick a password</h6>
+                                        </ng-template>
+                                        <ng-template pTemplate="footer">
+                                            <p-divider></p-divider>
+                                            <p class="mt-2">Suggestions</p>
+                                            <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+                                                <li>At least one lowercase</li>
+                                                <li>At least one uppercase</li>
+                                                <li>At least one numeric</li>
+                                                <li>Minimum 8 characters</li>
+                                            </ul>
+                                        </ng-template>
+                                    </p-password>
+                                    <label for="float-input">Password</label>
+                                </span>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12" *ngIf="activeForm">
+                <button pButton pRipple (click)="createUpdateWorker(2)" type="button" [label]="getLabel() + ' login'" class="p-button-outlined p-button-rounded"></button>
+            </div>
+        </div>
+    </form>
+</section>

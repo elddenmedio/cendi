@@ -1,0 +1,4 @@
+<section class="opera-avatar">
+    <p-avatar *ngIf="user.avatar" pBadge value="4" image="./assets/img/profiles/profile_1.jpg" styleClass="mr-2" size="xlarge" shape="circle" [pTooltip]="getFullName()" (click)="jumpTo('profile')"></p-avatar>
+    <p-avatar *ngIf="!user.avatar" pBadge value="4" [label]="getLabelName()" styleClass="mr-2" size="xlarge" shape="circle" [pTooltip]="getFullName()" (click)="jumpTo('profile')"></p-avatar>
+</section>

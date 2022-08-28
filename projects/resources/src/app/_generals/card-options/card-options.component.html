@@ -1,0 +1,19 @@
+<section>
+    <div class="grid">
+        <div class="col-12 sm:col-6 md:col-4 lg:col-4 xl:col-3" *ngFor="let card of settingCards; let i = index">
+            <p-card header="{{card?.title}}" subheader="{{card?.subtitle}}" [style]="{padding: '10px'}" styleClass="p-card-shadow">
+                <ng-template pTemplate="header" *ngIf="card?.icon">
+                    <button pButton pRipple type="button" icon="pi {{card?.icon}}" class="p-button-rounded p-button-outlined"></button>
+                </ng-template>
+                <p *ngIf="card?.description">{{card.description}}</p>
+                <ng-template pTemplate="footer">
+                    <div class="grid">
+                        <div class="col" *ngFor="let button of card?.buttons; let j = index">
+                            <button pButton pRipple type="button" label="{{button?.label}}" class="{{button?.styleClass}}" (click)="cardAction(button.action)"></button>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-card>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,54 @@
+<div class="grid">
+    <div class="col-8">
+        <section>
+            <div class="grid">
+                <div class="col-12">
+                    <!-- <div class="opera-f-t-r">
+                        <button pButton pRipple type="button" label="Editar" class="p-button-outlined p-button-rounded"></button>
+                    </div> -->
+                    <p-avatar *ngIf="parent?.avatar" image="./assets/img/profiles/{{parent.avatar}}" size="xlarge" shape="circle"></p-avatar>
+                    <p-avatar *ngIf="!parent?.avatar" label="{{getInitials(parent)}}" size="xlarge" shape="circle"></p-avatar>
+                </div>
+                <div class="col-12">
+                    {{parent.name}} {{parent.lastName}} {{parent.secondLastName}}
+                    <!-- <p-divider></p-divider> -->
+                </div>
+                <div class="col-12">
+                    <p-divider align="left" type="dashed">
+                        <b>Información Personal</b>
+                    </p-divider>
+                    <div class="grid">
+                        <div class="col-2 opera-t-a-d">
+                            <b>Nombre</b>
+                        </div>
+                        <div class="col-10 opera-t-a-l">
+                            {{parent.name}} {{parent.lastName}} {{parent.secondLastName}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <p-divider align="left" type="dashed">
+                        <b>Hijos</b>
+                    </p-divider>
+                    <div class="grid">
+                        <ng-container *ngFor="let sun of parent.sons; let i = index">
+                            <div class="col-2 opera-t-a-d">
+                                <b>{{sun.name}}</b>
+                            </div>
+                            <div class="col-10 opera-t-a-l">
+                                <div class="flex align-items-center">
+                                    <!-- <p-chip class="opera-c-p" (click)="viewParent(parent.id)" label="{{parent.name}}" image="./assets/img/profiles/{{parent.avatar}}" styleClass="mr-2"></p-chip> -->
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="col-4">
+        <section>
+
+        </section>
+    </div>
+</div>

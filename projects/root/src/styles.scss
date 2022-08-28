@@ -1,0 +1,64 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #801136;
+}
+
+input {
+    width: 100%;
+}
+
+.o-w-100 {
+    width: 100%;
+}
+
+.o-h-15 {
+    height: 15px;
+}
+
+.o-h-30 {
+    height: 30px;
+}
+
+.o-h-60 {
+    height: 30px;
+}
+
+.o-i-h-5-mb {
+    margin-bottom: 5px;
+}
+
+.opera-t-a-l {
+    text-align: left;
+}
+
+.opera-t-a-d {
+    text-align: right;
+}
+
+.opera-f-t-r {
+    position: absolute;
+    margin-top: 10px;
+    right: 20px;
+    z-index: 99999;
+}
+
+.opera-c-p {
+    cursor: pointer;
+}
+
+.p-card {
+    min-height: 335px;
+    .p-card-title {
+        font-size: 2.5vw;
+    }
+}
+
+.opera-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

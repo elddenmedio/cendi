@@ -1,0 +1,83 @@
+<div class="grid">
+    <div class="col-8">
+        <section>
+            <div class="grid">
+                <div class="col-12">
+                    <!-- <div class="opera-f-t-r">
+                        <button pButton pRipple type="button" label="Editar" class="p-button-outlined p-button-rounded"></button>
+                    </div> -->
+                    <p-avatar image="./assets/img/profiles/{{student.avatar}}" styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
+                </div>
+                <div class="col-12">
+                    {{student.name}} {{student.lastName}} {{student.secondLastName}}
+                    <!-- <p-divider></p-divider> -->
+                </div>
+                <div class="col-12">
+                    <p-divider align="left" type="dashed">
+                        <b>Información Personal</b>
+                    </p-divider>
+                    <div class="grid">
+                        <div class="col-2 opera-t-a-d">
+                            <b>Nombre</b>
+                        </div>
+                        <div class="col-10 opera-t-a-l">
+                            {{student.name}} {{student.lastName}} {{student.secondLastName}}
+                        </div>
+                        <div class="col-2 opera-t-a-d">
+                            <b>Edad</b>
+                        </div>
+                        <div class="col-10 opera-t-a-l">
+                            {{getAge(student.birthday)}} años
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <p-divider align="left" type="dashed">
+                        <b>Padres</b>
+                    </p-divider>
+                    <div class="grid">
+                        <ng-container *ngFor="let parent of student.parents; let i = index">
+                            <div class="col-2 opera-t-a-d">
+                                <b>{{parent.title}}</b>
+                            </div>
+                            <div class="col-10 opera-t-a-l">
+                                <div class="flex align-items-center">
+                                    <p-chip class="opera-c-p" (click)="viewParent(parent.id)" label="{{parent.name}}" image="./assets/img/profiles/{{parent.avatar}}" styleClass="mr-2"></p-chip>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="col-4">
+        <section>
+            <div class="grid">
+                <div class="col-12">
+                    <p-divider align="center" type="dashed">
+                        <b>{{student.group}}</b>
+                    </p-divider>
+                    <div class="grid">
+                        <div class="col-12 opera-t-a-l">
+                            <b>Maestras</b>
+                        </div>
+                        <div class="col-12 opera-t-a-l">
+                            <p-chip *ngFor="let teacher of student.teachers; let i = index" class="opera-c-p" label="{{teacher.name}} - {{teacher.position?.name}}" (click)="viewWorker(teacher.id)" image="./assets/img/profiles/{{teacher.avatar}}" styleClass="mr-2"></p-chip>
+                        </div>
+                        <div class="col-12 opera-t-a-l">
+                            <b>Compañeros</b>
+                        </div>
+                        <div class="col-12 opera-t-a-l">
+                            <ul>
+                                <li *ngFor="let partner of student.partners; let i = index">
+                                    <p-chip class="opera-c-p" label="{{partner.name}}" (click)="viewParner(partner.id)" image="./assets/img/profiles/{{partner.avatar}}" styleClass="mr-2"></p-chip>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+<section>
+    <form [formGroup]="loginForm">
+        <div class="container">
+            <div class="o-h-30"></div>
+            <span class="p-float-label">
+                <input id="float-input" type="text" pInputText formControlName="username"> 
+                <label for="float-input">Username</label>
+            </span>
+            <div class="o-h-30"></div>
+            <span class="p-float-label">
+                <input id="float-input" type="password" pInputText formControlName="password"> 
+                <label for="float-input">Password</label>
+            </span>
+            <div class="o-h-30"></div>
+            <button (click)="login()" pButton pRipple type="button" label="Login" class="p-button-outlined p-button-rounded o-w-100"></button>
+            <div class="o-h-15"></div>
+            <div class="field-checkbox">
+                <p-checkbox [binary]="true" inputId="binary"></p-checkbox>
+                <label for="binary">Remember me</label>
+            </div>
+        </div>
+        <div class="o-h-30"></div>
+    </form>
+</section>

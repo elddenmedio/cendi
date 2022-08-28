@@ -1,0 +1,36 @@
+<section>
+    <opera-export-print *ngIf="!_service" [displayExport]="true" [displayPrint]="false"></opera-export-print>
+
+    <p-divider align="left" type="dashed">
+        <b>Información del Alumno</b>
+    </p-divider>
+    <opera-dynamicForm [formTemplate]="formStudentTemplate" [getFormValues]="saveButtonStudent" [typeForm]="'float'" [displaySaveButton]="false" (formValue)="saveForm($event, 1)"></opera-dynamicForm>
+
+    <p-divider align="left" type="dashed">
+        <b>Información de Herman@</b>
+    </p-divider>
+    <button *ngIf="!addBrother" pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-outlined p-button-info" (click)="addBrother = true"></button>
+    <opera-dynamicForm *ngIf="addBrother" [formTemplate]="formStudentBrothersTemplate" [getFormValues]="saveButtonStudentBrother" [typeForm]="'float'" [displaySaveButton]="false" (formValue)="saveForm($event, 2)"></opera-dynamicForm>
+
+    <p-divider align="left" type="dashed">
+        <b>Información de Padre o Tutor</b>
+    </p-divider>
+    <opera-dynamicForm [formTemplate]="formStudentParentTemplate" [getFormValues]="saveButtonStudentParent1" [typeForm]="'float'" [displaySaveButton]="false" (formValue)="saveForm($event, 3)"></opera-dynamicForm>
+
+    <p-divider *ngIf="addParent"></p-divider>
+    <opera-dynamicForm *ngIf="addParent" [formTemplate]="formStudentParentTemplate" [getFormValues]="saveButtonStudentParent2" [typeForm]="'float'" [displaySaveButton]="false" (formValue)="saveForm($event, 4)"></opera-dynamicForm>
+
+    <div class="grid">
+        <div class="col-12">
+            <ng-container>
+                <div class="flex justify-content-between">
+                    <div class="o-f-t" *ngIf="!addParent">
+                        <label>Agregar Padre o Tutor</label>
+                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-outlined p-button-info" (click)="addParent = true"></button>
+                    </div>
+                    <button #save pButton pRipple type="button" label="Guardar" class="p-button-outlined p-button-rounded" (click)="sendSaveForm()"></button>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</section>

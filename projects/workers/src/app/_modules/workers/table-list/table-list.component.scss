@@ -1,0 +1,61 @@
+:host {
+    section {
+         ::ng-deep {
+            .p-datatable th {
+                background-color: #f6f6f6;
+                text-align: center;
+                &:hover {
+                    background: #fac9da !important
+                }
+            }
+            .p-datatable-tbody>tr.p-highlight,
+            .p-datatable-hoverable-rows .p-datatable-tbody>tr:not(.p-highlight):hover {
+                color: #ffffff;
+            }
+            .p-datatable .p-datatable-tbody td {
+                padding: 0.5rem 1rem;
+                .p-tag {
+                    font-weight: 100;
+                    text-transform: capitalize;
+                    &.opera-holder {
+                        background-color: #287D30;
+                    }
+                    &.opera-assistant {
+                        background-color: #7BDD84;
+                    }
+                    &.opera-pedagogy {
+                        background-color: #CE33FF;
+                    }
+                    &.opera-dentinst {
+                        background-color: #7BACDD;
+                    }
+                    &.opera-doctor {
+                        background-color: #3399FF;
+                    }
+                    &.opera-protection {
+                        background-color: #FF9C33;
+                    }
+                    &.opera-principal {
+                        background-color: #7D2850;
+                    }
+                }
+            }
+            .p-button.p-button-icon-only.p-button-rounded {
+                height: 2rem !important;
+            }
+            .p-button.p-button-icon-only {
+                width: 2rem !important;
+            }
+        }
+    }
+}
+
+@media print {
+    body * {
+        display: none;
+    }
+    body .printElement,
+    .printElement * {
+        display: block;
+    }
+}

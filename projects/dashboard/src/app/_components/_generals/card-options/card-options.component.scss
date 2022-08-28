@@ -1,0 +1,19 @@
+:host {
+    section {
+        text-align: center;
+        margin: auto;
+        p {
+            color: #717171 !important;
+        }
+         ::ng-deep {
+            .p-card {
+                .p-card-title {
+                    text-transform: capitalize;
+                }
+                .p-card-subtitle {
+                    color: #545454 !important;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,29 @@
+:host {
+    .grid {
+        margin-right: 0;
+        .opera-wrapper-body-mobile {
+            @media screen and (max-width: 769px) {
+                margin: 0 0 0 0.5rem;
+            }
+        }
+        .opera-wrapper-body {
+            width: calc(100vw - 13.5rem);
+            min-width: 80vw;
+            float: right;
+            @media screen and (max-width: 1000px) {
+                width: calc(100vw - 6rem);
+            }
+        }
+    }
+    footer {
+        width: calc(100vw - 11.5rem);
+        margin-left: -15px;
+        margin-bottom: -20px;
+        @media screen and (max-width: 1000px) {
+            width: calc(100vw - 5rem);
+        }
+        @media screen and (max-width: 769px) {
+            width: 100vw;
+        }
+    }
+}

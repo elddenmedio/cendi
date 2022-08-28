@@ -1,0 +1,71 @@
+<section>
+    <div class="grid">
+        <div class="col-12">
+            <div class="opera-f-t-r">
+                <opera-export-print [settings]="settingsPrintExport"></opera-export-print>
+            </div>
+            <opera-filter *ngIf="displayFilter" [settings]="filters" (filterSelected)="filtersAction($event)"></opera-filter>
+        </div>
+        <div class="col-12" id="printElement">
+            <ng-container *ngIf="!displayTemplate">
+                <opera-table-no-results></opera-table-no-results>
+            </ng-container>
+            <ng-container *ngIf="displayTemplate">
+                <p-table [value]="students" responsiveLayout="scroll" (sortFunction)="customSort($event)" [customSort]="true" selectionMode="single" (onRowSelect)="onRowSelect($event)">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th pSortableColumn="name">
+                                Nombre
+                                <p-sortIcon field="name"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="lastName">
+                                Apellido
+                                <p-sortIcon field="lastName"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="group">
+                                Grupo
+                                <p-sortIcon field="group"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="age">
+                                Edad
+                                <p-sortIcon field="age"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="brothers">
+                                Hermanos
+                                <p-sortIcon field="brothers"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="parents">
+                                Padres
+                                <p-sortIcon field="parents"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="options">
+                                Opciones
+                                <p-sortIcon field="options"></p-sortIcon>
+                            </th>
+                            <th></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-student>
+                        <tr [pSelectableRow]="student">
+                            <td>{{student.name}}</td>
+                            <td>{{student.lastName}}</td>
+                            <td>{{student.group}}</td>
+                            <td>{{getAge(student.birthday)}}</td>
+                            <td>{{student.brothers?.length ?? '-'}}</td>
+                            <td>
+                                <p-avatarGroup styleClass="mb-3">
+                                    <p-avatar *ngFor="let parent of student.parents; let j = index" image="./assets/img/profiles/{{parent.avatar}}" size="large" shape="circle" pTooltip="{{parent.name}} {{parent.lastName}} {{parent.secondLastName}}" tooltipPosition="top"></p-avatar>
+                                    <!-- <p-avatar label="+2" shape="circle" size="large" [style]="{'background-color':'#9c27b0', 'color': '#ffffff'}"></p-avatar> -->
+                                </p-avatarGroup>
+                            </td>
+                            <td>{{student.options | json}}</td>
+                            <td></td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+                <p-paginator styleClass="opera-print-none" [rows]="defaultRows" [totalRecords]="studentsTemp.length" (onPageChange)="paginate($event)"></p-paginator>
+                <!-- [rowsPerPageOptions]="[10,20,30]" -->
+            </ng-container>
+        </div>
+    </div>
+</section>
