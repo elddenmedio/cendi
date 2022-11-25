@@ -12,7 +12,7 @@ const routes: Routes = [
     children: [
       { path: '', component: DefaultComponent, data: { breadcrumb: 'Alumnos Opciones'} },
       { path: 'all', component: TableListComponent, data: { breadcrumb: 'Alumnos'} },
-      { path: 'personal-info/:userID', component: PersonalInfoComponent, data: { breadcrumb: 'Información Personal'} },
+      { path: 'personal-info', component: PersonalInfoComponent, data: { breadcrumb: 'Información Personal'} },
       { path: 'edit', component: EditComponent, data: { breadcrumb: 'Editar'} },
       { path: 'groups', loadChildren: () => import('../../_modules/groups/groups.module').then((m) => m.GroupsModule), data: { breadcrumb: 'Grupos'} },
     ]

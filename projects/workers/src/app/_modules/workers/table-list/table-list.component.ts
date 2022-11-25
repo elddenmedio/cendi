@@ -16,12 +16,12 @@ import { WorkersService } from '../../../_services/workers.service';
 })
 export class TableListComponent implements OnInit, OnDestroy {
 
-  settingsPrintExport: ExportInterface = {
+  settingsPrintExport: ExportInterface[] = [{
     title: 'Trabajadores',
-    format: 'xlsx',
-    print: 'portrait',
+    mime: 'xlsx',
+    orientation: 'portrait',
     element: 'printElement'
-  };
+  }];
 
   filters: FilterMasterInterface = {
     title: 'Opciones de filtro',

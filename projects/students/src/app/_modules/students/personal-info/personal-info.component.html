@@ -1,80 +1,165 @@
 <div class="grid">
-    <div class="col-8">
+    <div class="col-12 sm:col-12 md:col-8 lg:col-8 xl:col-8">
         <section>
             <div class="grid">
                 <div class="col-12">
-                    <!-- <div class="opera-f-t-r">
-                        <button pButton pRipple type="button" label="Editar" class="p-button-outlined p-button-rounded"></button>
-                    </div> -->
-                    <p-avatar image="./assets/img/profiles/{{student.avatar}}" styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
+                    <div class="opera-f-t-r" *ngIf="student">
+                        <!-- <button pButton pRipple type="button" (click)="setEdit()" label="Editar" class="p-button-outlined p-button-rounded"></button> -->
+                    </div>
+                    <ng-container *ngIf="student">
+                        <p-avatar *ngIf="student?.avatar" image="./assets/img/profiles/{{student.avatar}}" size="xlarge" shape="circle"></p-avatar>
+                        <p-avatar *ngIf="!student?.avatar" label="{{getInitials(student).toUpperCase()}}" size="xlarge" shape="circle"></p-avatar>
+                    </ng-container>
+                    <ng-container *ngIf="!student">
+                        <p-avatar label="OO" size="xlarge" shape="circle"></p-avatar>
+                    </ng-container>
                 </div>
-                <div class="col-12">
-                    {{student.name}} {{student.lastName}} {{student.secondLastName}}
-                    <!-- <p-divider></p-divider> -->
+                <div class="col-12" *ngIf="student">
+                    {{student.name}} {{student.last_name}} {{student?.second_last_name}}
+                    <p-divider *ngIf="student"></p-divider>
                 </div>
                 <div class="col-12">
                     <p-divider align="left" type="dashed">
                         <b>Información Personal</b>
                     </p-divider>
                     <div class="grid">
-                        <div class="col-2 opera-t-a-d">
+                        <div class="col-12 sm:col-12 md:col-2 lg:col-2 xl:col-2 opera-t-a-r">
                             <b>Nombre</b>
                         </div>
-                        <div class="col-10 opera-t-a-l">
-                            {{student.name}} {{student.lastName}} {{student.secondLastName}}
+                        <div class="col-12 sm:col-12 md:col-10 lg:col-10 xl:col-10 opera-t-a-l">
+                            {{student.name}} {{student.last_name}} {{student?.second_last_name}}
                         </div>
-                        <div class="col-2 opera-t-a-d">
+                        <div class="col-12 sm:col-12 md:col-2 lg:col-2 xl:col-2 opera-t-a-r">
                             <b>Edad</b>
                         </div>
-                        <div class="col-10 opera-t-a-l">
-                            {{getAge(student.birthday)}} años
+                        <div class="col-12 sm:col-12 md:col-10 lg:col-10 xl:col-10 opera-t-a-l">
+                            {{getAge(student.born)}} años
                         </div>
                     </div>
                 </div>
+
                 <div class="col-12">
                     <p-divider align="left" type="dashed">
                         <b>Padres</b>
                     </p-divider>
                     <div class="grid">
                         <ng-container *ngFor="let parent of student.parents; let i = index">
-                            <div class="col-2 opera-t-a-d">
-                                <b>{{parent.title}}</b>
-                            </div>
-                            <div class="col-10 opera-t-a-l">
+                            <div class="col-12 opera-t-a-l">
                                 <div class="flex align-items-center">
-                                    <p-chip class="opera-c-p" (click)="viewParent(parent.id)" label="{{parent.name}}" image="./assets/img/profiles/{{parent.avatar}}" styleClass="mr-2"></p-chip>
+                                    <p-chip *ngIf="parent.avatar" label="{{parent.name}} {{parent.last_name}} {{parent.second_last_name}}" size="large" image="./assets/img/profiles/{{parent.avatar}}" pTooltip="{{parent.name}} {{parent.last_name}} {{parent.second_last_name}}" tooltipPosition="top"></p-chip>
+                                    <p-chip *ngIf="!parent.avatar" label="{{parent.name}} {{parent.last_name}} {{parent.second_last_name}}" size="large" pTooltip="{{parent.name}} {{parent.last_name}} {{parent.second_last_name}}" tooltipPosition="top"></p-chip>
+                                    <!-- <p-avatar *ngIf="parent.avatar" image="./assets/img/profiles/{{parent.avatar}}" size="large" shape="circle" pTooltip="{{parent.name}} {{parent.last_name}} {{parent.second_last_name}}" tooltipPosition="top"></p-avatar> -->
+                                    <!-- <p-avatar *ngIf="!parent.avatar" label="{{getInitials(parent).toUpperCase()}}" size="large" shape="circle" pTooltip="{{parent.name}} {{parent.last_name}} {{parent.second_last_name}}" tooltipPosition="top"></p-avatar> -->
                                 </div>
                             </div>
                         </ng-container>
                     </div>
                 </div>
+
+                <ng-container *ngIf="student.brothers">
+                    <div class="col-12">
+                        <p-divider align="left" type="dashed">
+                            <b>Hermanos</b>
+                        </p-divider>
+                        <div class="grid">
+                            <ng-container *ngFor="let brother of student.brothers; let i = index">
+                                <div class="col-12 opera-t-a-l">
+                                    <div class="flex align-items-center">
+                                        <p-chip *ngIf="brother.avatar" label="{{brother.name}} {{brother.last_name}} {{brother.second_last_name}}" size="large" image="./assets/img/profiles/{{brother.avatar}}" pTooltip="{{brother.name}} {{brother.last_name}} {{brother.second_last_name}}" tooltipPosition="top"></p-chip>
+                                        <p-chip *ngIf="!brother.avatar" label="{{brother.name}} {{brother.last_name}} {{brother.second_last_name}}" size="large" pTooltip="{{brother.name}} {{brother.last_name}} {{brother.second_last_name}}" tooltipPosition="top"></p-chip>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </ng-container>
+
+                <ng-container *ngIf="student.observations">
+                    <div class="col-12">
+                        <p-divider align="left" type="dashed">
+                            <b>Observaciones</b>
+                        </p-divider>
+                        <div class="grid">
+                            <ng-container *ngIf="student.observations?.medic">
+                                <div class="col-12 sm:col-12 md:col-3 lg:col-3 xl:col-3 opera-t-a-r"><b>Médicas</b></div>
+                                <div class="col-12 sm:col-12 md:col-9 lg:col-9 xl:col-9 opera-t-a-l">
+                                    {{student.observations?.medic}}
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="student.observations?.dental">
+                                <div class="col-12 sm:col-12 md:col-3 lg:col-3 xl:col-3 opera-t-a-r"><b>Dentales</b></div>
+                                <div class="col-12 sm:col-12 md:col-9 lg:col-9 xl:col-9 opera-t-a-l">
+                                    {{student.observations?.dental}}
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="student.observations?.psychology">
+                                <div class="col-12 sm:col-12 md:col-3 lg:col-3 xl:col-3 opera-t-a-r"><b>Psycológicas</b></div>
+                                <div class="col-12 sm:col-12 md:col-9 lg:col-9 xl:col-9 opera-t-a-l">
+                                    {{student.observations?.psychology}}
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="student.observations?.pedagogy">
+                                <div class="col-12 sm:col-12 md:col-3 lg:col-3 xl:col-3 opera-t-a-r"><b>Pedagógicas</b></div>
+                                <div class="col-12 sm:col-12 md:col-9 lg:col-9 xl:col-9 opera-t-a-l">
+                                    {{student.observations?.pedagogy}}
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="student.observations?.general">
+                                <div class="col-12 sm:col-12 md:col-3 lg:col-3 xl:col-3 opera-t-a-r"><b>Generales</b></div>
+                                <div class="col-12 sm:col-12 md:col-9 lg:col-9 xl:col-9 opera-t-a-l">
+                                    {{student.observations?.general}}
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </ng-container>
             </div>
         </section>
     </div>
-    <div class="col-4">
-        <section>
+    <div class="col-12 sm:col-12 md:col-4 lg:col-4 xl:col-4">
+        <opera-skeleton-group *ngIf="skeleton"></opera-skeleton-group>
+        <section *ngIf="!skeleton">
             <div class="grid">
                 <div class="col-12">
                     <p-divider align="center" type="dashed">
-                        <b>{{student.group}}</b>
+                        <b>{{student?.group}}</b>
                     </p-divider>
                     <div class="grid">
-                        <div class="col-12 opera-t-a-l">
-                            <b>Maestras</b>
-                        </div>
-                        <div class="col-12 opera-t-a-l">
-                            <p-chip *ngFor="let teacher of student.teachers; let i = index" class="opera-c-p" label="{{teacher.name}} - {{teacher.position?.name}}" (click)="viewWorker(teacher.id)" image="./assets/img/profiles/{{teacher.avatar}}" styleClass="mr-2"></p-chip>
-                        </div>
-                        <div class="col-12 opera-t-a-l">
-                            <b>Compañeros</b>
-                        </div>
-                        <div class="col-12 opera-t-a-l">
-                            <ul>
-                                <li *ngFor="let partner of student.partners; let i = index">
-                                    <p-chip class="opera-c-p" label="{{partner.name}}" (click)="viewParner(partner.id)" image="./assets/img/profiles/{{partner.avatar}}" styleClass="mr-2"></p-chip>
-                                </li>
-                            </ul>
-                        </div>
+                        <ng-container *ngIf="teacher">
+                            <div class="col-12 opera-t-a-l">
+                                <ul>
+                                    <li><b>Titular</b></li>
+                                    <li>
+                                        <p-chip *ngIf="teacher?.avatar" class="opera-c-p" label="{{teacher.name}} {{teacher.last_name}} {{teacher.second_last_name}}" size="large" image="./assets/img/profiles/{{teacher?.avatar}}" pTooltip="{{teacher.name}} {{teacher.last_name}} {{teacher.second_last_name}}"
+                                            tooltipPosition="top" (click)="viewWorker(teacher.uID)"></p-chip>
+                                        <p-chip *ngIf="!teacher?.avatar" class="opera-c-p" label="{{teacher.name}} {{teacher.last_name}} {{teacher.second_last_name}}" size="large" pTooltip="{{teacher.name}} {{teacher.last_name}} {{teacher.second_last_name}}" tooltipPosition="top" (click)="viewWorker(teacher.uID)"></p-chip>
+                                    </li>
+                                    <ng-container *ngIf="teacher?.partners">
+                                        <li><b>Asistentes</b></li>
+                                        <li *ngFor="let partner of teacher?.partners; let i = index">
+                                            <p-chip *ngIf="partner.avatar" class="opera-c-p" label="{{partner.name}} {{partner.last_name}} {{partner.second_last_name}}" size="large" image="./assets/img/profiles/{{partner.avatar}}" pTooltip="{{partner.name}} {{partner.last_name}} {{partner.second_last_name}}"
+                                                tooltipPosition="top" (click)="viewWorker(partner.uID)"></p-chip>
+                                            <p-chip *ngIf="!partner?.avatar" class="opera-c-p" label="{{partner.name}} {{partner.last_name}} {{partner.second_last_name}}" size="large" pTooltip="{{partner.name}} {{partner.last_name}} {{partner.second_last_name}}" tooltipPosition="top" (click)="viewWorker(partner.uID)"></p-chip>
+                                        </li>
+                                    </ng-container>
+                                </ul>
+                            </div>
+                        </ng-container>
+                        <p-divider class="o-w-100"></p-divider>
+                        <ng-container *ngIf="partners">
+                            <div class="col-12 opera-t-a-l">
+                                <b>Compañeros</b>
+                            </div>
+                            <div class="col-12 opera-t-a-l">
+                                <ul>
+                                    <li *ngFor="let partner of partners; let i = index">
+                                        <p-chip *ngIf="partner.avatar" class="opera-c-p" label="{{partner.name}} {{partner.last_name}} {{partner.second_last_name}}" size="large" image="./assets/img/profiles/{{partner.avatar}}" pTooltip="{{partner.name}} {{partner.last_name}} {{partner.second_last_name}}"
+                                            tooltipPosition="top" (click)="viewParner(partner.sID)"></p-chip>
+                                        <p-chip *ngIf="!partner.avatar" class="opera-c-p" label="{{partner.name}} {{partner.last_name}} {{partner.second_last_name}}" size="large" pTooltip="{{partner.name}} {{partner.last_name}} {{partner.second_last_name}}" tooltipPosition="top" (click)="viewParner(partner.sID)"></p-chip>
+                                    </li>
+                                </ul>
+                            </div>
+                        </ng-container>
                     </div>
                 </div>
             </div>

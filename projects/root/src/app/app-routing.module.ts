@@ -6,18 +6,20 @@ import { CalendarComponent } from './_components/calendar/calendar.component';
 
 import { HelpComponent } from './_components/help/help.component';
 import { LoginComponent } from './_components/login/login.component';
+import { LogoutComponent } from './_components/_generals/logout/logout.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
 
   { path: 'login', component: LoginComponent, data: { redirectLogin: ['login'] } },
   { path: 'help', component: HelpComponent, data: { redirectLogin: ['login'], breadcrumb: 'Ayuda' } },
+  { path: 'logout', component: LogoutComponent, data: { redirectLogin: ['login'], breadcrumb: 'LogOut' } },
   { path: 'calendar', component: CalendarComponent, data: { breadcrumb: 'Calendario' } },
 
   { path: 'dashboard', canActivate: [LoginGuard], loadChildren: () => import('dashboard/Module').then((m) => m.DashboardModule), data: { redirectLogin: ['login'], breadcrumb: 'Dashboard' } },
 
-  { path: 'resources', canActivate: [LoginGuard], loadChildren: () => import('resources/Module').then((m) => m.ResourcesModule), data: { redirectLogin: ['login'], breadcrumb: 'Resources' } },
-  // { path: 'files', canActivate: [LoginGuard], loadChildren: () => import('resources/Module').then((m) => m.FilesModule), data: { redirectLogin: ['login'] } },
+  { path: 'resources', canActivate: [LoginGuard], loadChildren: () => import('resources/Module').then((m) => m.ResourcesModule), data: { redirectLogin: ['login'], breadcrumb: 'Recursos' } },
+  { path: 'documents', canActivate: [LoginGuard], loadChildren: () => import('documents/Module').then((m) => m.DocumentsModule), data: { redirectLogin: ['login'], breadcrumb: 'Documentos' } },
   // { path: 'warehouse', canActivate: [LoginGuard], loadChildren: () => import('resources/Module').then((m) => m.WarehouseModule), data: { redirectLogin: ['login'] } },
 
   // { path: 'groups', canActivate: [LoginGuard], loadChildren: () => import('students/Module').then((m) => m.GroupsModule), data: { redirectLogin: ['login'], breadcrumb: 'Grupos' } },

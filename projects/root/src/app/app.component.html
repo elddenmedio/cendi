@@ -1,17 +1,18 @@
 <ng-container *ngIf="displayTemplate">
     <header>
-        <opera-navbar></opera-navbar>
+        <opera-navbar [innerWidth]="innerWidth"></opera-navbar>
     </header>
     <div class="grid">
         <div class="col">
-            <opera-sidebar *ngIf="innerWidth > 768" [innerWidth]="innerWidth"></opera-sidebar>
+            <opera-sidebar [innerWidth]="innerWidth"></opera-sidebar>
             <div class="grid" [ngClass]="{ 'opera-wrapper-body': innerWidth > 768, 'opera-wrapper-body-mobile': innerWidth <= 768 }">
                 <div class="col-12">
                     <opera-breadcrumbs></opera-breadcrumbs>
                 </div>
                 <div class="col-12">
-                    <p-scrollPanel [style]="{width: '100%', height: '75vh'}">
+                    <p-scrollPanel [style]="{width: '100%', height: (innerWidth < 500) ? '63vh' : '74.5vh'}">
                         <router-outlet></router-outlet>
+                        <p-scrollTop target="parent" styleClass="custom-scrolltop" [threshold]="100" icon="pi pi-arrow-up"></p-scrollTop>
                     </p-scrollPanel>
                 </div>
                 <footer class="col-12">

@@ -23,10 +23,10 @@
                     <b>Información Personal</b>
                 </p-divider>
                 <div class="grid">
-                    <div class="col-2 opera-t-a-d">
+                    <div class="col-12 sm:col-12 md:col-2 lg:col-2 xl:col-2 opera-t-a-r">
                         <b>Nombre</b>
                     </div>
-                    <div class="col-10 opera-t-a-l">
+                    <div class="col-12 sm:col-12 md:col-10 lg:col-10 xl:col-10 opera-t-a-l">
                         <ng-container *ngIf="!activeForm && user">{{user.name}} {{user.last_name}} {{user?.second_last_name}}</ng-container>
                         <ng-container *ngIf="activeForm">
                             <div class="grid">
@@ -51,17 +51,17 @@
                             </div>
                         </ng-container>
                     </div>
-                    <!-- <div class="col-2 opera-t-a-d">
+                    <!-- <div class="col-2 opera-t-a-r">
                     <b>Teléfono</b>
                     </div>
                     <div class="col-10 opera-t-a-l">
                         {{user.phone}}
                     </div> -->
                     <ng-container formGroupName="mail">
-                        <div class="col-2 opera-t-a-d">
+                        <div class="col-12 sm:col-12 md:col-2 lg:col-2 xl:col-2 opera-t-a-r">
                             <b>Correo Electrónico</b>
                         </div>
-                        <div class="col-10 opera-t-a-l">
+                        <div class="col-12 sm:col-12 md:col-10 lg:col-10 xl:col-10 opera-t-a-l">
                             <ng-container *ngIf="!activeForm && user">{{user?.mail?.mail_personal}} <span *ngIf="user?.mail?.mail_work">|</span> {{user?.mail?.mail_work}}</ng-container>
                             <ng-container *ngIf="activeForm">
                                 <div class="grid">
@@ -82,10 +82,10 @@
                         </div>
                     </ng-container>
                     <ng-container *ngIf="!activeForm && user">
-                        <div class="col-2 opera-t-a-d">
+                        <div class="col-12 sm:col-12 md:col-2 lg:col-2 xl:col-2 opera-t-a-r">
                             <b>Fecha de Creación</b>
                         </div>
-                        <div class="col-10 opera-t-a-l">
+                        <div class="col-12 sm:col-12 md:col-10 lg:col-10 xl:col-10 opera-t-a-l">
                             {{user.created | date: 'dd/MM/yyyy HH:mm'}}
                         </div>
                     </ng-container>
@@ -97,10 +97,10 @@
                         <b>Trabajo</b>
                     </p-divider>
                     <div class="grid">
-                        <div class="col-2 opera-t-a-d">
+                        <div class="col-12 sm:col-12 md:col-2 lg:col-2 xl:col-2 opera-t-a-r">
                             <b>Centro</b>
                         </div>
-                        <div class="col-10 opera-t-a-l">
+                        <div class="col-12 sm:col-12 md:col-10 lg:col-10 xl:col-10 opera-t-a-l">
                             <ng-container *ngIf="!activeForm && user">{{userEdit?.center?.name}}</ng-container>
                             <ng-container *ngIf="activeForm && centers">
                                 <div class="grid">
@@ -112,10 +112,10 @@
                         </div>
 
                         <ng-container *ngIf="permissions">
-                            <div class="col-2 opera-t-a-d">
+                            <div class="col-12 sm:col-12 md:col-2 lg:col-2 xl:col-2 opera-t-a-r">
                                 <b>Permisos</b>
                             </div>
-                            <div class="col-10 opera-t-a-l">
+                            <div class="col-12 sm:col-12 md:col-10 lg:col-10 xl:col-10 opera-t-a-l">
                                 <ng-container *ngIf="!activeForm && user">{{user?.level?.name}}</ng-container>
                                 <ng-container *ngIf="activeForm">
                                     <div class="grid">
@@ -127,10 +127,10 @@
                             </div>
                         </ng-container>
 
-                        <div class="col-2 opera-t-a-d">
+                        <div class="col-12 sm:col-12 md:col-2 lg:col-2 xl:col-2 opera-t-a-r">
                             <b>Puesto</b>
                         </div>
-                        <div class="col-10 opera-t-a-l">
+                        <div class="col-12 sm:col-12 md:col-10 lg:col-10 xl:col-10 opera-t-a-l">
                             <ng-container *ngIf="!activeForm && user">{{user?.center?.position}}</ng-container>
                             <ng-container *ngIf="activeForm">
                                 <div class="grid">
@@ -142,10 +142,10 @@
                         </div>
 
                         <ng-container *ngIf="subjects || user?.center?.subject">
-                            <div class="col-2 opera-t-a-d">
+                            <div class="col-12 sm:col-12 md:col-2 lg:col-2 xl:col-2 opera-t-a-r">
                                 <b>Materia</b>
                             </div>
-                            <div class="col-10 opera-t-a-l">
+                            <div class="col-12 sm:col-12 md:col-10 lg:col-10 xl:col-10 opera-t-a-l">
                                 <ng-container *ngIf="!activeForm && user">{{user.center?.subject?.abbreviation}}</ng-container>
                                 <ng-container *ngIf="activeForm && subjects">
                                     <div class="grid">
@@ -161,10 +161,10 @@
                         </ng-container>
 
                         <ng-container *ngIf="groups || user?.center?.group">
-                            <div class="col-2 opera-t-a-d">
+                            <div class="col-12 sm:col-12 md:col-2 lg:col-2 xl:col-2 opera-t-a-r">
                                 <b>Grupo</b>
                             </div>
-                            <div class="col-10 opera-t-a-l">
+                            <div class="col-12 sm:col-12 md:col-10 lg:col-10 xl:col-10 opera-t-a-l">
                                 <ng-container *ngIf="!activeForm && user">{{user.center?.group?.abbreviation}} - {{user.center?.group?.name}}</ng-container>
                                 <ng-container *ngIf="activeForm && groups">
                                     <div class="grid">
@@ -179,10 +179,10 @@
                             </div>
                         </ng-container>
 
-                        <div class="col-2 opera-t-a-d">
+                        <div class="col-12 sm:col-12 md:col-2 lg:col-2 xl:col-2 opera-t-a-r">
                             <b>Horarios</b>
                         </div>
-                        <div class="col-10 opera-t-a-l">
+                        <div class="col-12 sm:col-12 md:col-10 lg:col-10 xl:col-10 opera-t-a-l">
                             <ng-container *ngIf="!activeForm && user">Entrada: {{user?.center?.check_in | getTimecheck}} | Salida: {{user?.center?.check_out | getTimecheck}} | Descanso: {{user?.center?.check_break | getTimecheck}}</ng-container>
                             <ng-container *ngIf="activeForm">
                                 <div class="grid">
@@ -211,10 +211,10 @@
                 </ng-container>
                 <div class="grid">
                     <ng-container *ngIf="!activeForm">
-                        <div class="col-2 opera-t-a-d" *ngIf="user?.partners">
+                        <div class="col-12 sm:col-12 md:col-2 lg:col-2 xl:col-2 opera-t-a-r" *ngIf="user?.partners">
                             <b>Compañeros</b>
                         </div>
-                        <div class="col-10 opera-t-a-l" *ngIf="user?.partners">
+                        <div class="col-12 sm:col-12 md:col-10 lg:col-10 xl:col-10 opera-t-a-l" *ngIf="user?.partners">
                             <div class="flex align-items-center">
                                 <ng-container *ngFor="let partner of user?.partners; let i = index">
                                     <p-chip *ngIf="!partner.avatar" class="opera-c-p" (click)="viewUser(partner.uID)" label="{{partner.name}}" styleClass="mr-2"></p-chip>
@@ -246,10 +246,10 @@
                     <b>Datos de acceso</b>
                 </p-divider>
                 <div class="grid">
-                    <div class="col-2 opera-t-a-d">
+                    <div class="col-12 sm:col-12 md:col-2 lg:col-2 xl:col-2 opera-t-a-r">
                         <b>Username</b>
                     </div>
-                    <div class="col-10 opera-t-a-l">
+                    <div class="col-12 sm:col-12 md:col-10 lg:col-10 xl:col-10 opera-t-a-l">
                         <ng-container *ngIf="!activeForm && user">{{user?.username}}</ng-container>
                         <ng-container *ngIf="activeForm">
                             <div class="grid">
@@ -262,10 +262,10 @@
                             </div>
                         </ng-container>
                     </div>
-                    <div class="col-2 opera-t-a-d">
+                    <div class="col-12 sm:col-12 md:col-2 lg:col-2 xl:col-2 opera-t-a-r">
                         <b>Contraseña</b>
                     </div>
-                    <div class="col-10 opera-t-a-l">
+                    <div class="col-12 sm:col-12 md:col-10 lg:col-10 xl:col-10 opera-t-a-l">
                         <ng-container *ngIf="!activeForm">******</ng-container>
                         <ng-container *ngIf="activeForm">
                             <div class="grid">

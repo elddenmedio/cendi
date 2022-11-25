@@ -7,6 +7,8 @@ import { EditComponent } from './edit/edit.component';
 import { PersonalInfoComponent } from './personal-info/personal-info.component';
 import { DefaultComponent } from './default/default.component';
 import { GeneralModule } from '../general.module';
+import { SkeletonGroupComponent } from './personal-info/skeleton-group/skeleton-group.component';
+import { SkeletonTableComponent } from './table-list/skeleton-table/skeleton-table.component';
 
 
 @NgModule({
@@ -14,7 +16,9 @@ import { GeneralModule } from '../general.module';
     TableListComponent,
     EditComponent,
     PersonalInfoComponent,
-    DefaultComponent
+    DefaultComponent,
+    SkeletonGroupComponent,
+    SkeletonTableComponent
   ],
   imports: [
     CommonModule,

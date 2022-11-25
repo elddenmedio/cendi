@@ -1,8 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AgeCalculatorService } from 'general-actions';
-import { Subject } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
+import { SecureLocalService } from 'secure-local';
 import { StudentInterface } from '../../../_interfaces/students';
+import { TeacherInterface } from '../../../_interfaces/teacher';
+import { StudentService } from '../../../_services/student.service';
 
 @Component({
   selector: 'app-personal-info',
@@ -14,17 +17,25 @@ export class PersonalInfoComponent implements OnInit, OnDestroy {
   userID!: number;
 
   student!: StudentInterface;
+  partners!: StudentInterface[];
+  teacher!: TeacherInterface;
+
+  activeForm: boolean = false;
+
+  skeleton: boolean = true;
 
   private unSubscribe$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private ageCalculatorService: AgeCalculatorService
+    private ageCalculatorService: AgeCalculatorService,
+    private secureLocalServices: SecureLocalService,
+    private studentService: StudentService
   ) {
-    this.route.params.subscribe(params => {
-      this.userID = params['userID'];
-    });
+    // this.route.params.subscribe(params => {
+    //   this.userID = params['userID'];
+    // });
   }
 
   ngOnInit(): void {
@@ -32,46 +43,78 @@ export class PersonalInfoComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.secureLocalServices.deleteStorage('student');
     this.unSubscribe$.next(true);
     this.unSubscribe$.unsubscribe();
   }
 
   private _getUserInfo(): void {
-    this.userID;
-    this.student = {
-      id: 0, name: 'Andrea', lastName: 'Apellido', group: 'PIA', birthday: '2018-10-07', avatar: 'onyamalimba.png', brothers: [{ id: 20, name: 'Nombre' }], parents: [
-        { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'amyelsner.png', sex: 'femail', title: 'mamá' },
-        { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'onyamalimba.png', sex: 'mail', title: 'papá' }
-      ],
-      teachers: [
-        { id: 1, name: 'Cecilia', lastName: 'Ponce', secondLastName: 'Guitierres', avatar: 'amyelsner.png', position: { name: 'titular' } },
-        { id: 1, name: 'Vero', lastName: 'Ruiz', secondLastName: 'Guitierres', avatar: 'amyelsner.png', position: { name: 'complementaria' } }
-      ],
-      partners: [
-        {id: 2, name: 'Carlos', lastName: 'Lopez', avatar: 'onyamalimba.png'},
-        {id: 3, name: 'Juan', lastName: 'Lopez', avatar: 'onyamalimba.png'},
-        {id: 4, name: 'Andrea', lastName: 'Lopez', avatar: 'onyamalimba.png'},
-        {id: 5, name: 'Perla', lastName: 'Lopez', avatar: 'onyamalimba.png'},
-        {id: 6, name: 'Javier', lastName: 'Lopez', avatar: 'onyamalimba.png'},
-        {id: 7, name: 'Agustin', lastName: 'Lopez', avatar: 'onyamalimba.png'}
-      ]
-      , options: []
-    };
+    this.student = this.secureLocalServices.getStorage('student') || null;
+    if (!this.student) {
+      this.router.navigate([`/students/all`], { relativeTo: this.route });
+    } else {
+      this._getGroupCatalog(this.student);
+    }
+  }
+
+  private _getGroupCatalog(student: StudentInterface): void {
+    this._getTeachers(student);
+    this._getPartners(student);
+  }
+
+  private _getTeachers(student: StudentInterface): void {
+    const _group = student.group?.split('-') || '';
+    this.studentService.getTeacherByGroup(_group[_group?.length - 1].trim())
+      .pipe(takeUntil(this.unSubscribe$)).subscribe(
+        succ => {
+          this.teacher = succ;
+        },
+        err => {
+          debugger
+        }
+      );
+  }
+
+  private _getPartners(student: StudentInterface): void {
+    const _group = student.group?.split('-') || '';
+    this.studentService.getParnesByGroup(_group[_group?.length - 1].trim())
+      .pipe(takeUntil(this.unSubscribe$)).subscribe(
+        succ => {
+          let _partners: StudentInterface[] = [];
+          succ.forEach(el => { if (el.sID !== this.student.sID) { _partners.push(el) } });
+          this.partners = _partners;
+        },
+        err => {
+          debugger
+        },
+        () => {
+          this.skeleton = false;
+        }
+      );
   }
 
   getAge(birthday: any): number {
     return this.ageCalculatorService.getAge(birthday);
   }
 
-  viewParent(parentID: number): void {
-
-  }
-
-  viewWorker(teacherID: number): void {
-    this.router.navigate([`/workers/personal-info/${teacherID}`], { relativeTo: this.route });
+  viewWorker(teacherID: number | string): void {
+    this.router.navigate([`/workers/personal-info/${teacherID}`]);
   }
 
   viewParner(parnerID: number): void {
-    this.router.navigate([`/students/personal-info/${parnerID}`], { relativeTo: this.route });
+    const _partner = this.partners.find(el => el.sID === parnerID);
+    this.secureLocalServices.setStorage('student', _partner);
+    this._getUserInfo();
+  }
+
+  getInitials(studen: any): string {
+    const _name = studen.name.substring(0, 1);
+    const _lastName = studen.last_name?.substring(0, 1);
+
+    return `${_name}${_lastName}`;
+  }
+
+  setEdit(defaultEdit?: boolean): void {
+    this.activeForm = (defaultEdit) ?? !this.activeForm;
   }
 }

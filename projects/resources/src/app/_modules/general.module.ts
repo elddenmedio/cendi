@@ -12,6 +12,8 @@ import { TableNoResultsComponent } from '../_generals/table-no-results/table-no-
 import { CardOptionsComponent } from '../_generals/card-options/card-options.component';
 import { HttpClientModule } from '@angular/common/http';
 import { InterceptorsModule } from 'interceptors';
+import { ResourcesService } from '../_services/resources.service';
+import { InterviewService } from '../_services/interview.service';
 
 const generlasModule = [
   FormsModule,
@@ -40,6 +42,10 @@ const generlasModule = [
     CardOptionsComponent,
 
     generlasModule
+  ],
+  providers: [
+    ResourcesService,
+    InterviewService
   ]
 })
 export class GeneralModule { }

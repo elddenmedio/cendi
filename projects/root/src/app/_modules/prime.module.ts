@@ -16,6 +16,8 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { TooltipModule } from 'primeng/tooltip';
+import { ScrollTopModule } from 'primeng/scrolltop';
+import { SidebarModule } from 'primeng/sidebar';
 
 const primeModules = [
   ScrollPanelModule,
@@ -31,7 +33,9 @@ const primeModules = [
   MessagesModule,
   AvatarModule,
   AvatarGroupModule,
-  TooltipModule
+  TooltipModule,
+  ScrollTopModule,
+  SidebarModule
 ];
 
 @NgModule({

@@ -5,7 +5,7 @@ const form_interview_parent_template: FormTemplateInterface[] = [
         type: 'select',
         placeholder: '-Prefijo-',
         formControl: 'prefix',
-        label: 'Prefijo',
+        label: 'Prefijo*',
         class: 'col-12 sm:col-2 md:col-2 lg:col-2 xl:col-2',
         options: [{ name: "Sr.", code: 'sr' }, { name: "Sra.", code: 'sra' }, { name: "Srta.", code: 'srta' }, { name: "Otro", code: 'otro' }],
         default: '',
@@ -14,14 +14,14 @@ const form_interview_parent_template: FormTemplateInterface[] = [
     {
         type: 'text',
         formControl: 'name',
-        label: 'Nombre',
+        label: 'Nombre*',
         class: 'col-12 sm:col-10 md:col-10 lg:col-10 xl:col-10',
         validators: [{ validator: 'required', value: true }, { validator: 'minLength', value: 3 }] // , { validator: 'custom', value: /^\S+@\S+\.\S+$/, message: 'Favor de introducir el Name' }
     },
     {
         type: 'text',
         formControl: 'last_name',
-        label: 'Apellido',
+        label: 'Apellido*',
         class: 'col-12 sm:col-6 md:col-6 lg:col-6 xl:col-6',
         validators: [{ validator: 'required', value: true }, { validator: 'minLength', value: 3 }] 
     },
@@ -30,7 +30,7 @@ const form_interview_parent_template: FormTemplateInterface[] = [
         formControl: 'second_last_name',
         label: 'Secundo Apellido',
         class: 'col-12 sm:col-6 md:col-6 lg:col-6 xl:col-6',
-        validators: []
+        validators: [{ validator: 'required', value: true }]
     },
     {
         type: "mask",
@@ -61,6 +61,7 @@ const form_interview_parent_template: FormTemplateInterface[] = [
         formControl: 'address',
         label: 'Dirección',
         class: 'col-12',
+        style: 'width: 100%; height: 100px;',
         validators: [] 
     },
     {
@@ -68,6 +69,7 @@ const form_interview_parent_template: FormTemplateInterface[] = [
         formControl: 'work',
         label: 'Trabajo',
         class: 'col-12',
+        style: 'width: 100%; height: 100px;',
         validators: [] 
     },
     {
@@ -75,6 +77,7 @@ const form_interview_parent_template: FormTemplateInterface[] = [
         formControl: 'observation',
         label: 'Observaciones',
         class: 'col-12',
+        style: 'width: 100%; height: 100px;',
         validators: [] 
     }
 ]

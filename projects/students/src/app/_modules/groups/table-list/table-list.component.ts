@@ -19,12 +19,12 @@ export class TableListComponent implements OnInit, OnDestroy {
 
   student!: StudentInterface;
 
-  settingsPrintExport: ExportInterface = {
+  settingsPrintExport: ExportInterface[] = [{
     title: 'Grupos',
-    format: 'xlsx',
-    print: 'portrait',
+    mime: 'xlsx',
+    orientation: 'portrait',
     element: 'printElement'
-  };
+  }];
 
   filters: FilterMasterInterface = {
     title: 'Opciones de filtro',

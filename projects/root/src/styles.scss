@@ -35,8 +35,11 @@ input {
     text-align: left;
 }
 
-.opera-t-a-d {
+.opera-t-a-r {
     text-align: right;
+    @media screen and (max-width: 500px) {
+        text-align: left;
+    }
 }
 
 .opera-f-t-r {
@@ -61,4 +64,61 @@ input {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.p-scrollpanel .p-scrollpanel-bar {
+    background-color: #801136;
+}
+
+@mixin query-print {
+    @media print {
+        @content;
+    }
+    .body.is-pdf-mode {
+        @content;
+    }
+}
+
+@media print {
+    html,
+    body {
+        background-color: #ffffff;
+    }
+    opera-navbar,
+    opera-sidebar,
+    opera-breadcrumbs,
+    opera-footer,
+    opera-export-print,
+    .p-scrollpanel .p-scrollpanel-bar {
+        display: none;
+    }
+    @page: right {
+        @bottom-right {
+            content: counter(page) " - " counter(pages);
+        }
+    }
+    body {
+        -webkit-print-color-adjust: exact !important;
+        zoom: 100%;
+    }
+    .opera-wrapper-body,
+    .opera-wrapper-body-mobile {
+        width: 100vw !important;
+    }
+    // .p-scrollpanel-content{
+    //     overflow: auto;
+    // }
+    table {
+        page-break-inside: auto
+    }
+    tr {
+        page-break-inside: avoid;
+        page-break-after: auto
+    }
+    thead {
+        display: table-header-group
+    }
+    tfoot {
+        display: table-footer-group
+    }
 }

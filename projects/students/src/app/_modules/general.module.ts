@@ -9,10 +9,14 @@ import { GeneralActionsModule } from 'general-actions';
 
 import { TableNoResultsComponent } from '../_generals/table-no-results/table-no-results.component';
 import { CardOptionsComponent } from '../_generals/card-options/card-options.component';
+import { StudentService } from '../_services/student.service';
+import { HttpClientModule } from '@angular/common/http';
+import { InterceptorsModule } from 'interceptors';
 
 const generlasModule = [
   FormsModule,
   ReactiveFormsModule,
+  HttpClientModule,
 
   PrimeModule,
   FilterOperaModule,
@@ -26,10 +30,11 @@ const generlasModule = [
   ],
   imports: [
     CommonModule,
-    FormsModule,
 
     generlasModule,
-    PrimeModule
+    PrimeModule,
+
+    InterceptorsModule
   ],
   exports: [
     TableNoResultsComponent,
@@ -37,6 +42,9 @@ const generlasModule = [
     
     generlasModule,
     PrimeModule
+  ],
+  providers: [
+    StudentService
   ]
 })
 export class GeneralModule { }

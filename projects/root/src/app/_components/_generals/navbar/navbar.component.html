@@ -1,4 +1,4 @@
-<p-menubar [model]="items" [style]="{'background-color':'#ffffff', 'border-radius': '0'}">
+<p-menubar [model]="items" [style]="{'background-color':'#ffffff', 'border-radius': '0', 'padding-left': (innerWidth < 770) ? '60px' : ''}">
     <ng-template pTemplate="start">
         <img src="./assets/img/1200px-Logo_Instituto_Politécnico_Nacional.png" height="40" class="mr-2">
     </ng-template>

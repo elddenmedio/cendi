@@ -1,0 +1,34 @@
+opera-pdf-kpi-student {
+    display: none;
+}
+
+@media print {
+    @page {
+        size: letter landscape;
+        margin: 0;
+    }
+    opera-pdf-kpi-student {
+        display: block;
+        margin-left: 0;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+section {
+     :host {
+         ::ng-deep {
+            .p-dropdown {
+                width: 100% !important;
+            }
+            .col-kpi {
+                flex: 0 0 auto;
+                padding: 0;
+                width: 5% !important;
+            }
+            .o-s-r-h {
+                height: 160px;
+            }
+        }
+    }
+}

@@ -4,8 +4,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FilterMasterInterface } from 'filter-opera';
 import { AgeCalculatorService, CustomSortService, ExportInterface } from 'general-actions';
 import { SortEvent } from 'primeng/api';
-import { Subject } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
+import { SecureLocalService } from 'secure-local';
+import { ParentsInterface } from '../../../_interfaces/parents';
 import { StudentInterface } from '../../../_interfaces/students';
+import { StudentService } from '../../../_services/student.service';
 
 @Component({
   selector: 'app-table-list',
@@ -14,12 +17,12 @@ import { StudentInterface } from '../../../_interfaces/students';
 })
 export class TableListComponent implements OnInit, OnDestroy {
 
-  settingsPrintExport: ExportInterface = {
+  settingsPrintExport: ExportInterface[] = [{
     title: 'Grupos',
-    format: 'xlsx',
-    print: 'portrait',
+    mime: 'xlsx',
+    orientation: 'portrait',
     element: 'printElement'
-  };
+  }];
 
   filters: FilterMasterInterface = {
     title: 'Opciones de filtro',
@@ -42,6 +45,9 @@ export class TableListComponent implements OnInit, OnDestroy {
 
   defaultRows: number = 10;
   defaultPaginator = { first: 0, page: 0, pageCount: 0, rows: 10 };
+  totalRows: any = 0;
+
+  skeleton: boolean = true;
 
   private unSubscribe$: Subject<boolean> = new Subject<boolean>();
 
@@ -49,7 +55,9 @@ export class TableListComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private ageCalculatorService: AgeCalculatorService,
-    private customSortService: CustomSortService
+    private customSortService: CustomSortService,
+    private studentServices: StudentService,
+    private secureLocalServices: SecureLocalService
   ) { }
 
   ngOnInit(): void {
@@ -63,111 +71,6 @@ export class TableListComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.unSubscribe$.next(true);
     this.unSubscribe$.unsubscribe();
-  }
-
-  private _getStudents(): void {
-    this.students = [
-      {
-        id: 0, name: 'Andrea', lastName: 'Apellido', group: 'PIA', birthday: '2018-10-07', brothers: [{ id: 20, name: 'Nombre' }], parents: [
-          { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'amyelsner.png', sex: 'femail' },
-          { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'onyamalimba.png', sex: 'mail' }
-        ], options: []
-      },
-      {
-        id: 1, name: 'jorge', lastName: 'Apellido', group: 'MI', birthday: '2018-10-07', parents: [
-          { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'amyelsner.png', sex: 'femail' },
-          { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'onyamalimba.png', sex: 'mail' }
-        ], options: []
-      },
-      {
-        id: 2, name: 'Alina', lastName: 'Apellido', group: 'PIA', birthday: '2018-10-07', parents: [
-          { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'amyelsner.png', sex: 'femail' },
-          { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'onyamalimba.png', sex: 'mail' }
-        ], options: []
-      },
-      {
-        id: 3, name: 'Liset', lastName: 'Apellido', group: 'MI', birthday: '2018-10-07', parents: [
-          { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'amyelsner.png', sex: 'femail' },
-          { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'onyamalimba.png', sex: 'mail' }
-        ], options: []
-      },
-      {
-        id: 4, name: 'Ivan', lastName: 'Apellido', group: 'PIA', birthday: '2018-10-07', parents: [
-          { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'amyelsner.png', sex: 'femail' },
-          { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'onyamalimba.png', sex: 'mail' }
-        ], options: []
-      },
-      {
-        id: 5, name: 'Erik', lastName: 'Apellido', group: 'MI', birthday: '2018-10-07', parents: [
-          { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'amyelsner.png', sex: 'femail' },
-          { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'onyamalimba.png', sex: 'mail' }
-        ], options: []
-      },
-      {
-        id: 6, name: 'Danira', lastName: 'Apellido', group: 'PIA', birthday: '2018-10-07', parents: [
-          { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'amyelsner.png', sex: 'femail' },
-          { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'onyamalimba.png', sex: 'mail' }
-        ], options: []
-      },
-      {
-        id: 7, name: 'Favian', lastName: 'Apellido', group: 'MI', birthday: '2018-10-07', parents: [
-          { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'amyelsner.png', sex: 'femail' },
-          { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'onyamalimba.png', sex: 'mail' }
-        ], options: []
-      },
-      {
-        id: 8, name: 'Benjamin', lastName: 'Apellido', group: 'PIA', birthday: '2018-10-07', parents: [
-          { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'amyelsner.png', sex: 'femail' },
-          { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'onyamalimba.png', sex: 'mail' }
-        ], options: []
-      },
-      {
-        id: 9, name: 'Issac', lastName: 'Apellido', group: 'MI', birthday: '2018-10-07', parents: [
-          { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'amyelsner.png', sex: 'femail' },
-          { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'onyamalimba.png', sex: 'mail' }
-        ], options: []
-      },
-      {
-        id: 10, name: 'Andrea', lastName: 'Apellido', group: 'PIA', birthday: '2018-10-07', parents: [
-          { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'amyelsner.png', sex: 'femail' },
-          { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'onyamalimba.png', sex: 'mail' }
-        ], options: []
-      },
-      {
-        id: 11, name: 'jorge', lastName: 'Apellido', group: 'MI', birthday: '2018-10-07', parents: [
-          { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'amyelsner.png', sex: 'femail' },
-          { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'onyamalimba.png', sex: 'mail' }
-        ], options: []
-      },
-      {
-        id: 12, name: 'Alina', lastName: 'Apellido', group: 'PIA', birthday: '2018-10-07', parents: [
-          { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'amyelsner.png', sex: 'femail' },
-          { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'onyamalimba.png', sex: 'mail' }
-        ], options: []
-      },
-      {
-        id: 13, name: 'Andrea', lastName: 'Apellido', group: 'PIA', birthday: '2018-10-07', parents: [
-          { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'amyelsner.png', sex: 'femail' },
-          { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'onyamalimba.png', sex: 'mail' }
-        ], options: []
-      },
-      {
-        id: 14, name: 'jorge', lastName: 'Apellido', group: 'MI', birthday: '2018-10-07', parents: [
-          { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'amyelsner.png', sex: 'femail' },
-          { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'onyamalimba.png', sex: 'mail' }
-        ], options: []
-      },
-      {
-        id: 15, name: 'Alina', lastName: 'Apellido', group: 'PIA', birthday: '2018-10-07', parents: [
-          { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'amyelsner.png', sex: 'femail' },
-          { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'onyamalimba.png', sex: 'mail' }
-        ], options: []
-      }
-    ];
-
-    this.studentsTemp = this.students;
-    this.defaultPaginator.pageCount = Math.ceil(this.students.length / 10);
-    this.paginate(this.defaultPaginator);
   }
 
   private _getFiltersOptions(): void {
@@ -191,13 +94,129 @@ export class TableListComponent implements OnInit, OnDestroy {
     }
   }
 
+  private _getStudents(): void {
+    this.studentServices.getAllStudents(this.defaultPaginator.page, this.defaultPaginator.rows)
+      .pipe(takeUntil(this.unSubscribe$)).subscribe(
+        succ => {
+          this.students = succ;
+          this.studentsTemp = this.students;
+          this.defaultPaginator.pageCount = Math.ceil(this.students.length / 10);
+        },
+        err => {
+          debugger
+        }, 
+        () => {
+            this.displayTemplate = false;
+        }
+      );
+    // this.students = [
+    //   {
+    //     id: 0, name: 'Andrea', lastName: 'Apellido', group: 'PIA', birthday: '2018-10-07', brothers: [{ id: 20, name: 'Nombre' }], parents: [
+    //       { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'amyelsner.png', sex: 'femail' },
+    //       { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'onyamalimba.png', sex: 'mail' }
+    //     ], options: []
+    //   },
+    //   {
+    //     id: 1, name: 'jorge', lastName: 'Apellido', group: 'MI', birthday: '2018-10-07', parents: [
+    //       { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'amyelsner.png', sex: 'femail' },
+    //       { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'onyamalimba.png', sex: 'mail' }
+    //     ], options: []
+    //   },
+    //   {
+    //     id: 2, name: 'Alina', lastName: 'Apellido', group: 'PIA', birthday: '2018-10-07', parents: [
+    //       { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'amyelsner.png', sex: 'femail' },
+    //       { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'onyamalimba.png', sex: 'mail' }
+    //     ], options: []
+    //   },
+    //   {
+    //     id: 3, name: 'Liset', lastName: 'Apellido', group: 'MI', birthday: '2018-10-07', parents: [
+    //       { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'amyelsner.png', sex: 'femail' },
+    //       { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'onyamalimba.png', sex: 'mail' }
+    //     ], options: []
+    //   },
+    //   {
+    //     id: 4, name: 'Ivan', lastName: 'Apellido', group: 'PIA', birthday: '2018-10-07', parents: [
+    //       { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'amyelsner.png', sex: 'femail' },
+    //       { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'onyamalimba.png', sex: 'mail' }
+    //     ], options: []
+    //   },
+    //   {
+    //     id: 5, name: 'Erik', lastName: 'Apellido', group: 'MI', birthday: '2018-10-07', parents: [
+    //       { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'amyelsner.png', sex: 'femail' },
+    //       { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'onyamalimba.png', sex: 'mail' }
+    //     ], options: []
+    //   },
+    //   {
+    //     id: 6, name: 'Danira', lastName: 'Apellido', group: 'PIA', birthday: '2018-10-07', parents: [
+    //       { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'amyelsner.png', sex: 'femail' },
+    //       { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'onyamalimba.png', sex: 'mail' }
+    //     ], options: []
+    //   },
+    //   {
+    //     id: 7, name: 'Favian', lastName: 'Apellido', group: 'MI', birthday: '2018-10-07', parents: [
+    //       { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'amyelsner.png', sex: 'femail' },
+    //       { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'onyamalimba.png', sex: 'mail' }
+    //     ], options: []
+    //   },
+    //   {
+    //     id: 8, name: 'Benjamin', lastName: 'Apellido', group: 'PIA', birthday: '2018-10-07', parents: [
+    //       { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'amyelsner.png', sex: 'femail' },
+    //       { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'onyamalimba.png', sex: 'mail' }
+    //     ], options: []
+    //   },
+    //   {
+    //     id: 9, name: 'Issac', lastName: 'Apellido', group: 'MI', birthday: '2018-10-07', parents: [
+    //       { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'amyelsner.png', sex: 'femail' },
+    //       { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'onyamalimba.png', sex: 'mail' }
+    //     ], options: []
+    //   },
+    //   {
+    //     id: 10, name: 'Andrea', lastName: 'Apellido', group: 'PIA', birthday: '2018-10-07', parents: [
+    //       { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'amyelsner.png', sex: 'femail' },
+    //       { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'onyamalimba.png', sex: 'mail' }
+    //     ], options: []
+    //   },
+    //   {
+    //     id: 11, name: 'jorge', lastName: 'Apellido', group: 'MI', birthday: '2018-10-07', parents: [
+    //       { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'amyelsner.png', sex: 'femail' },
+    //       { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'onyamalimba.png', sex: 'mail' }
+    //     ], options: []
+    //   },
+    //   {
+    //     id: 12, name: 'Alina', lastName: 'Apellido', group: 'PIA', birthday: '2018-10-07', parents: [
+    //       { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'amyelsner.png', sex: 'femail' },
+    //       { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'onyamalimba.png', sex: 'mail' }
+    //     ], options: []
+    //   },
+    //   {
+    //     id: 13, name: 'Andrea', lastName: 'Apellido', group: 'PIA', birthday: '2018-10-07', parents: [
+    //       { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'amyelsner.png', sex: 'femail' },
+    //       { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'onyamalimba.png', sex: 'mail' }
+    //     ], options: []
+    //   },
+    //   {
+    //     id: 14, name: 'jorge', lastName: 'Apellido', group: 'MI', birthday: '2018-10-07', parents: [
+    //       { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'amyelsner.png', sex: 'femail' },
+    //       { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'onyamalimba.png', sex: 'mail' }
+    //     ], options: []
+    //   },
+    //   {
+    //     id: 15, name: 'Alina', lastName: 'Apellido', group: 'PIA', birthday: '2018-10-07', parents: [
+    //       { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'amyelsner.png', sex: 'femail' },
+    //       { id: 1, name: 'Fabiola', lastName: 'Perez', secondLastName: 'Lopez', avatar: 'onyamalimba.png', sex: 'mail' }
+    //     ], options: []
+    //   }
+    // ];
+  }
+
   paginate(event$: any): void {
     //event.first = Index of the first record
     //event.rows = Number of rows to display in new page
     //event.page = Index of the new page
     //event.pageCount = Total number of pages
-    const _students = this.studentsTemp.slice(event$.first, (event$.rows * (event$.page + 1)));
-    this.students = _students;
+    this.skeleton = true;
+    this.defaultPaginator.page = event$.page;
+    this._getStudents();
   }
 
   customSort(event$: SortEvent) {
@@ -219,6 +238,14 @@ export class TableListComponent implements OnInit, OnDestroy {
   }
 
   onRowSelect(event$: any): void {
-    this.router.navigate([`/students/personal-info/${event$.data.id}`], { relativeTo: this.route });
+    this.secureLocalServices.setStorage('student', event$.data);
+    this.router.navigate([`/students/personal-info`], { relativeTo: this.route });
+  }
+
+  getInitials(parent: ParentsInterface): string {
+    const _name = parent.name.substring(0, 1);
+    const _lastName = parent.last_name?.substring(0, 1);
+
+    return `${_name}${_lastName}`;
   }
 }

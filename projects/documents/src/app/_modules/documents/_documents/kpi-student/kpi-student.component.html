@@ -1,0 +1,422 @@
+<ng-container *ngIf="startDownload">
+    <!-- calculateValues: {{calculateValues|json}}
+    <hr> -->
+    <opera-pdf-kpi-student [headerOptions]="selectOptions" [values]="calculateValues" (emitAction)="sendPrintExport($event)"></opera-pdf-kpi-student>
+</ng-container>
+<ng-container>
+    <section>
+        <div class="grid">
+            <div class="col-12">
+                <div class="opera-f-t-r">
+                    <opera-export-print [displayExport]="true" [displayPrint]="true" [settings]="settingsPrintExport" [startDownload]="startDownload" [pdfExport]="sendEmitExport" (emitAction)="manageAction($event)"></opera-export-print>
+                </div>
+            </div>
+
+            <div class="col-12 o-h-30"></div>
+            <div class="col-12 o-h-30"></div>
+
+            <div class="col-12">
+                <div class="grid">
+                    <div class="col-12">
+                        <div class="grid">
+                            <ng-container *ngIf="groups">
+                                <div class="col-12 md:col-4">
+                                    <div class="grid">
+                                        <div class="col-12 md:col-3">
+                                            <h3>Grado</h3>
+                                        </div>
+                                        <div class="col-12 md:col-9">
+                                            <p-dropdown [options]="groups" placeholder="Seleccione Grupo" optionLabel="name" [showClear]="false" (onChange)="setSelect('group', $event.value)"></p-dropdown>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+
+                            <ng-container *ngIf="hits">
+                                <div class="col-12 md:col-4">
+                                    <div class="grid">
+                                        <div class="col-12 md:col-4">
+                                            <h3>Aciertos</h3>
+                                        </div>
+                                        <div class="col-12 md:col-8">
+                                            <p-dropdown [options]="hits | slice : 1" placeholder="Aciertos" optionLabel="label" [showClear]="false" (onChange)="setSelect('aciertos', $event.value)"></p-dropdown>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+
+                            <ng-container *ngIf="hits">
+                                <div class="col-12 md:col-4">
+                                    <div class="grid">
+                                        <div class="col-12 md:col-4">
+                                            <h3>Alumnos</h3>
+                                        </div>
+                                        <div class="col-12 md:col-8">
+                                            <p-dropdown [options]="hits | slice : 1" placeholder="Alumnos" optionLabel="label" [showClear]="false" (onChange)="setSelect('alumnos', $event.value)"></p-dropdown>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <ng-container *ngIf="displayForm == 3">
+                <div class="col-12">
+                    <hr>
+                </div>
+
+                <ng-container>
+                    <div class="col-12">
+                        <h2>Desarrollo Escolar y Emocional</h2>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="grid">
+                            <div class="col-9">
+                                <h1>Capacidades Adquiridas</h1>
+                            </div>
+                            <div class="col-3">
+                                Resultados
+                                <div class="grid">
+                                    <div class="col">
+                                        <b>A</b>
+                                    </div>
+                                    <div class="col">
+                                        <b>%</b>
+                                    </div>
+                                    <div class="col">
+                                        <b>E</b>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <opera-dynamicForm [formTemplate]="formKpiStudentsTemplate" [dynamicButtons]="buttonsDynamic" [displaySaveButton]="false" [checkErrors]="false" (formValue)="saveForm($event, 1)" (setValueForm)="setIndividualValue($event, 1)"></opera-dynamicForm>
+                    </div>
+                    <div class="col-3">
+                        <div class="grid" *ngFor="let value of getTotalByStep(1); let i = index">
+                            <div class="col-12 o-h-30" [ngClass]="{ 'o-s-r-h': (i > 0) }"></div>
+                            <div class="col">
+                                <b>{{getTotalAcquired(1, i)}}</b>
+                                <!-- <b>{{ calculateValues | totalsLoop:'values':1:i | json}}</b> -->
+                            </div>
+                            <div class="col">
+                                <b>{{getTotalPercent(1, i)}}%</b>
+                            </div>
+                            <div class="col">
+                                <b>{{getEvaluation(1, i)}}</b>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="grid">
+                            <div class="col-9">
+                                <h3>Promedio General</h3>
+                            </div>
+                            <div class="col-3">
+                                <div class="grid">
+                                    <div class="col">
+                                        <b>1</b>
+                                    </div>
+                                    <div class="col">
+                                        <b>1%</b>
+                                    </div>
+                                    <div class="col">
+                                        <b>1</b>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+
+                <div class="col-12">
+                    <hr>
+                </div>
+
+                <ng-container>
+                    <div class="col-12">
+                        <h2>Capacidad de Aprender</h2>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="grid">
+                            <div class="col-9">
+                                <h1>Capacidades Adquiridas</h1>
+                            </div>
+                            <div class="col-3">
+                                Resultados
+                                <div class="grid">
+                                    <div class="col">
+                                        <b>A</b>
+                                    </div>
+                                    <div class="col">
+                                        <b>%</b>
+                                    </div>
+                                    <div class="col">
+                                        <b>E</b>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <opera-dynamicForm [formTemplate]="formKpiStudentsTemplate" [dynamicButtons]="buttonsDynamic" [displaySaveButton]="false" (formValue)="saveForm($event, 1)"></opera-dynamicForm>
+                    </div>
+                    <div class="col-3">
+                        <div class="grid" *ngFor="let value of getTotalByStep(2); let i = index">
+                            <div class="col-12 o-h-30" [ngClass]="{ 'o-s-r-h': (i > 0) }"></div>
+                            <div class="col">
+                                <b>{{getTotalAcquired(2, i)}}</b>
+                                <!-- <b>{{ calculateValues | totalsLoop:'values':1:i | json}}</b> -->
+                            </div>
+                            <div class="col">
+                                <b>{{getTotalPercent(2, i)}}%</b>
+                            </div>
+                            <div class="col">
+                                <b>{{getEvaluation(2, i)}}</b>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="grid">
+                            <div class="col-9">
+                                <h3>Promedio General</h3>
+                            </div>
+                            <div class="col-3">
+                                <div class="grid">
+                                    <div class="col">
+                                        <b>1</b>
+                                    </div>
+                                    <div class="col">
+                                        <b>1%</b>
+                                    </div>
+                                    <div class="col">
+                                        <b>1</b>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+
+                <div class="col-12">
+                    <hr>
+                </div>
+
+                <ng-container>
+                    <div class="col-12">
+                        <h2>Desarrollo de Lenguaje y la Comunicación</h2>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="grid">
+                            <div class="col-9">
+                                <h1>Capacidades Adquiridas</h1>
+                            </div>
+                            <div class="col-3">
+                                Resultados
+                                <div class="grid">
+                                    <div class="col">
+                                        <b>A</b>
+                                    </div>
+                                    <div class="col">
+                                        <b>%</b>
+                                    </div>
+                                    <div class="col">
+                                        <b>E</b>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <opera-dynamicForm [formTemplate]="formKpiStudentsTemplate" [dynamicButtons]="buttonsDynamic" [displaySaveButton]="false" (formValue)="saveForm($event, 1)"></opera-dynamicForm>
+                    </div>
+                    <div class="col-3">
+                        <div class="grid" *ngFor="let value of getTotalByStep(3); let i = index">
+                            <div class="col-12 o-h-30" [ngClass]="{ 'o-s-r-h': (i > 0) }"></div>
+                            <div class="col">
+                                <b>{{getTotalAcquired(3, i)}}</b>
+                                <!-- <b>{{ calculateValues | totalsLoop:'values':1:i | json}}</b> -->
+                            </div>
+                            <div class="col">
+                                <b>{{getTotalPercent(3, i)}}%</b>
+                            </div>
+                            <div class="col">
+                                <b>{{getEvaluation(3, i)}}</b>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="grid">
+                            <div class="col-9">
+                                <h3>Promedio General</h3>
+                            </div>
+                            <div class="col-3">
+                                <div class="grid">
+                                    <div class="col">
+                                        <b>1</b>
+                                    </div>
+                                    <div class="col">
+                                        <b>1%</b>
+                                    </div>
+                                    <div class="col">
+                                        <b>1</b>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+
+                <div class="col-12">
+                    <hr>
+                </div>
+
+                <ng-container>
+                    <div class="col-12">
+                        <h2>Desarrollo Cognitivo</h2>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="grid">
+                            <div class="col-9">
+                                <h1>Capacidades Adquiridas</h1>
+                            </div>
+                            <div class="col-3">
+                                Resultados
+                                <div class="grid">
+                                    <div class="col">
+                                        <b>A</b>
+                                    </div>
+                                    <div class="col">
+                                        <b>%</b>
+                                    </div>
+                                    <div class="col">
+                                        <b>E</b>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <opera-dynamicForm [formTemplate]="formKpiStudentsTemplate" [dynamicButtons]="buttonsDynamic" [displaySaveButton]="false" (formValue)="saveForm($event, 1)"></opera-dynamicForm>
+                    </div>
+                    <div class="col-3">
+                        <div class="grid" *ngFor="let value of getTotalByStep(4); let i = index">
+                            <div class="col-12 o-h-30" [ngClass]="{ 'o-s-r-h': (i > 0) }"></div>
+                            <div class="col">
+                                <b>{{getTotalAcquired(4, i)}}</b>
+                                <!-- <b>{{ calculateValues | totalsLoop:'values':1:i | json}}</b> -->
+                            </div>
+                            <div class="col">
+                                <b>{{getTotalPercent(4, i)}}%</b>
+                            </div>
+                            <div class="col">
+                                <b>{{getEvaluation(4, i)}}</b>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="grid">
+                            <div class="col-9">
+                                <h3>Promedio General</h3>
+                            </div>
+                            <div class="col-3">
+                                <div class="grid">
+                                    <div class="col">
+                                        <b>1</b>
+                                    </div>
+                                    <div class="col">
+                                        <b>1%</b>
+                                    </div>
+                                    <div class="col">
+                                        <b>1</b>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+
+                <div class="col-12">
+                    <hr>
+                </div>
+
+                <ng-container>
+                    <div class="col-12">
+                        <h2>Desarrollo Físico y Motor</h2>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="grid">
+                            <div class="col-9">
+                                <h1>Capacidades Adquiridas</h1>
+                            </div>
+                            <div class="col-3">
+                                Resultados
+                                <div class="grid">
+                                    <div class="col">
+                                        <b>A</b>
+                                    </div>
+                                    <div class="col">
+                                        <b>%</b>
+                                    </div>
+                                    <div class="col">
+                                        <b>E</b>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <opera-dynamicForm [formTemplate]="formKpiStudentsTemplate" [dynamicButtons]="buttonsDynamic" [displaySaveButton]="false" (formValue)="saveForm($event, 1)"></opera-dynamicForm>
+                    </div>
+                    <div class="col-3">
+                        <div class="grid" *ngFor="let value of getTotalByStep(5); let i = index">
+                            <div class="col-12 o-h-30" [ngClass]="{ 'o-s-r-h': (i > 0) }"></div>
+                            <div class="col">
+                                <b>{{getTotalAcquired(5, i)}}</b>
+                                <!-- <b>{{ calculateValues | totalsLoop:'values':1:i | json}}</b> -->
+                            </div>
+                            <div class="col">
+                                <b>{{getTotalPercent(5, i)}}%</b>
+                            </div>
+                            <div class="col">
+                                <b>{{getEvaluation(5, i)}}</b>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="grid">
+                            <div class="col-9">
+                                <h3>Promedio General</h3>
+                            </div>
+                            <div class="col-3">
+                                <div class="grid">
+                                    <div class="col">
+                                        <b>1</b>
+                                    </div>
+                                    <div class="col">
+                                        <b>1%</b>
+                                    </div>
+                                    <div class="col">
+                                        <b>1</b>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+
+                <div class="col-12">
+                    <hr>
+                </div>
+            </ng-container>
+        </div>
+    </section>
+</ng-container>

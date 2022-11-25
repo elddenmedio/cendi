@@ -33,6 +33,7 @@ module.exports = {
                 "students": "http://localhost:4203/remoteEntry.js",
                 "dashboard": "http://localhost:4204/remoteEntry.js",
                 "parents": "http://localhost:4205/remoteEntry.js",
+                "documents": "http://localhost:4206/remoteEntry.js"
             },
             shared: {
                 ...mf.shareAll({

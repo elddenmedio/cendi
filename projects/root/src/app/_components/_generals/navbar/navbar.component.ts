@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Subject, takeUntil } from 'rxjs';
 import { MenuService } from '../../../_services/menu.service';
@@ -10,6 +10,8 @@ import { MenuService } from '../../../_services/menu.service';
   providers: [MenuService]
 })
 export class NavbarComponent implements OnInit, OnDestroy {
+
+  @Input() innerWidth!: number;
 
   items!: MenuItem[];
 

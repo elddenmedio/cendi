@@ -1,2 +1,12 @@
-<p-slideMenu #sidebarMenu [model]="itemsSidevar" [viewportHeight]="250"></p-slideMenu>
-<!--[style]="{'width':'100%', 'height': '90vh', 'border-radius': '0'}"-->
+<ng-container *ngIf="!displayMobile">
+    <p-slideMenu #sidebarMenu [model]="(innerWidth < 1000) ? itemsSidevarMobile : itemsSidevar" [viewportHeight]="250">
+    </p-slideMenu>
+    <!--[style]="{'width':'100%', 'height': '90vh', 'border-radius': '0'}"-->
+</ng-container>
+<ng-container *ngIf="displayMobile">
+    <p-button type="button" class="mr-2 o-m-m-t-l" (click)="displayMenu = true" icon="pi pi-bars"></p-button>
+    <p-sidebar [(visible)]="displayMenu" [baseZIndex]="10">
+        <p-slideMenu #sidebarMenu [model]="itemsSidevar">
+        </p-slideMenu>
+    </p-sidebar>
+</ng-container>

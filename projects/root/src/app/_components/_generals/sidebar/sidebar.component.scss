@@ -4,6 +4,7 @@
             // width: 100% !important;
             position: absolute;
             float: left;
+            border: none;
             ul {
                 width: 100% !important;
             }
@@ -22,6 +23,20 @@
             }
             @media screen and(max-width: 1000px) {
                 width: 4.5rem !important;
+            }
+            @media screen and(max-width: 770px) {
+                width: 18rem !important;
+            }
+        }
+        .o-m-m-t-l {
+            position: absolute;
+            top: 15px;
+        }
+        .p-sidebar {
+            .p-sidebar-content {
+                @media screen and(max-width: 770px) {
+                    height: 95% !important;
+                }
             }
         }
     }

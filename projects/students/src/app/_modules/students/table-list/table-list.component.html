@@ -2,15 +2,15 @@
     <div class="grid">
         <div class="col-12">
             <div class="opera-f-t-r">
-                <opera-export-print [settings]="settingsPrintExport"></opera-export-print>
+                <opera-export-print [settings]="settingsPrintExport" [displayAdd]="false"></opera-export-print>
             </div>
             <opera-filter *ngIf="displayFilter" [settings]="filters" (filterSelected)="filtersAction($event)"></opera-filter>
         </div>
         <div class="col-12" id="printElement">
-            <ng-container *ngIf="!displayTemplate">
-                <opera-table-no-results></opera-table-no-results>
-            </ng-container>
             <ng-container *ngIf="displayTemplate">
+                <opera-skeleton-table></opera-skeleton-table>
+            </ng-container>
+            <ng-container *ngIf="!displayTemplate">
                 <p-table [value]="students" responsiveLayout="scroll" (sortFunction)="customSort($event)" [customSort]="true" selectionMode="single" (onRowSelect)="onRowSelect($event)">
                     <ng-template pTemplate="header">
                         <tr>
@@ -19,7 +19,7 @@
                                 <p-sortIcon field="name"></p-sortIcon>
                             </th>
                             <th pSortableColumn="lastName">
-                                Apellido
+                                Apellido (s)
                                 <p-sortIcon field="lastName"></p-sortIcon>
                             </th>
                             <th pSortableColumn="group">
@@ -38,32 +38,29 @@
                                 Padres
                                 <p-sortIcon field="parents"></p-sortIcon>
                             </th>
-                            <th pSortableColumn="options">
-                                Opciones
-                                <p-sortIcon field="options"></p-sortIcon>
-                            </th>
                             <th></th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-student>
                         <tr [pSelectableRow]="student">
                             <td>{{student.name}}</td>
-                            <td>{{student.lastName}}</td>
+                            <td>{{student.last_name}} {{student?.second_last_name}}</td>
                             <td>{{student.group}}</td>
-                            <td>{{getAge(student.birthday)}}</td>
+                            <td>{{getAge(student.born)}}</td>
                             <td>{{student.brothers?.length ?? '-'}}</td>
                             <td>
                                 <p-avatarGroup styleClass="mb-3">
-                                    <p-avatar *ngFor="let parent of student.parents; let j = index" image="./assets/img/profiles/{{parent.avatar}}" size="large" shape="circle" pTooltip="{{parent.name}} {{parent.lastName}} {{parent.secondLastName}}" tooltipPosition="top"></p-avatar>
-                                    <!-- <p-avatar label="+2" shape="circle" size="large" [style]="{'background-color':'#9c27b0', 'color': '#ffffff'}"></p-avatar> -->
+                                    <ng-container *ngFor="let parent of student.parents; let j = index">
+                                        <p-avatar *ngIf="parent.avatar" image="./assets/img/profiles/{{parent.avatar}}" size="large" shape="circle" pTooltip="{{parent.name}} {{parent.last_name}} {{parent.second_last_name}}" tooltipPosition="top"></p-avatar>
+                                        <p-avatar *ngIf="!parent.avatar" label="{{getInitials(parent).toUpperCase()}}" size="large" shape="circle" pTooltip="{{parent.name}} {{parent.last_name}} {{parent.second_last_name}}" tooltipPosition="top"></p-avatar>
+                                    </ng-container>
                                 </p-avatarGroup>
                             </td>
-                            <td>{{student.options | json}}</td>
                             <td></td>
                         </tr>
                     </ng-template>
                 </p-table>
-                <p-paginator styleClass="opera-print-none" [rows]="defaultRows" [totalRecords]="studentsTemp.length" (onPageChange)="paginate($event)"></p-paginator>
+                <p-paginator *ngIf="students && (totalRows > students.length)" styleClass="opera-print-none" [rows]="defaultRows" [totalRecords]="totalRows" (onPageChange)="paginate($event)"></p-paginator>
                 <!-- [rowsPerPageOptions]="[10,20,30]" -->
             </ng-container>
         </div>

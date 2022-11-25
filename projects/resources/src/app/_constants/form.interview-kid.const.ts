@@ -4,14 +4,14 @@ const form_interview_kid_template: FormTemplateInterface[] = [
     {
         type: 'text',
         formControl: 'name',
-        label: 'Nombre (s)',
+        label: 'Nombre (s)*',
         class: 'col-12',
         validators: [{ validator: 'required', value: true }, { validator: 'minLength', value: 3 }] // , { validator: 'custom', value: /^\S+@\S+\.\S+$/, message: 'Favor de introducir el Name' }
     },
     {
         type: 'text',
         formControl: 'last_name',
-        label: 'Apellido',
+        label: 'Apellido*',
         class: 'col-12 sm:col-6 md:col-6 lg:col-6 xl:col-6',
         validators: [{ validator: 'required', value: true }, { validator: 'minLength', value: 3 }] 
     },
@@ -25,7 +25,7 @@ const form_interview_kid_template: FormTemplateInterface[] = [
     {
         type: 'date',
         formControl: 'born',
-        label: 'Fecha de Nacimiento',
+        label: 'Fecha de Nacimiento*',
         class: 'col-12 sm:col-6 md:col-6 lg:col-6 xl:col-6',
         validators: [{ validator: 'required', value: true }] 
     },
@@ -44,6 +44,7 @@ const form_interview_kid_template: FormTemplateInterface[] = [
         formControl: 'medic_observation',
         label: 'Observaciones Médicas',
         class: 'col-12 sm:col-12 md:col-12 lg:col-12 xl:col-12',
+        style: 'width: 100%; height: 100px;',
         validators: [] 
     },
     {
@@ -51,6 +52,7 @@ const form_interview_kid_template: FormTemplateInterface[] = [
         formControl: 'dental_observation',
         label: 'Observaciones Dentales',
         class: 'col-12 sm:col-12 md:col-12 lg:col-12 xl:col-12',
+        style: 'width: 100%; height: 100px;',
         validators: [] 
     },
     {
@@ -58,6 +60,7 @@ const form_interview_kid_template: FormTemplateInterface[] = [
         formControl: 'psychology_observation',
         label: 'Observaciones Psicológicas',
         class: 'col-12 sm:col-12 md:col-12 lg:col-12 xl:col-12',
+        style: 'width: 100%; height: 100px;',
         validators: [] 
     },
     {
@@ -65,6 +68,7 @@ const form_interview_kid_template: FormTemplateInterface[] = [
         formControl: 'pedagogy_observation',
         label: 'Observaciones de Pedagogía',
         class: 'col-12 sm:col-12 md:col-12 lg:col-12 xl:col-12',
+        style: 'width: 100%; height: 100px;',
         validators: [] 
     },
     {
@@ -72,6 +76,7 @@ const form_interview_kid_template: FormTemplateInterface[] = [
         formControl: 'general_observation',
         label: 'Observaciones Generales',
         class: 'col-12 sm:col-12 md:col-12 lg:col-12 xl:col-12',
+        style: 'width: 100%; height: 100px;',
         validators: [] 
     }
 ]

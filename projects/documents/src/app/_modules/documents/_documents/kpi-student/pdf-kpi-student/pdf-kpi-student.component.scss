@@ -1,0 +1,215 @@
+.opera-scroll {
+    // overflow: scroll;
+    padding: 20px;
+}
+
+@media print {
+    p {
+        color: black;
+        font-family: "Times New Roman", serif;
+        font-style: normal;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: 8.5pt;
+        margin: 0pt;
+    }
+    .s1 {
+        color: black;
+        font-family: Calibri, sans-serif;
+        font-style: italic;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: 15pt;
+    }
+    .s2 {
+        color: black;
+        font-family: Calibri, sans-serif;
+        font-style: italic;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: 8.5pt;
+    }
+    .s3 {
+        color: black;
+        font-family: Calibri, sans-serif;
+        font-style: italic;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: 12.5pt;
+    }
+    .s4 {
+        color: black;
+        font-family: Calibri, sans-serif;
+        font-style: normal;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: 10pt;
+    }
+    .s5 {
+        color: black;
+        font-family: Calibri, sans-serif;
+        font-style: normal;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: 7pt;
+    }
+    .s6 {
+        color: black;
+        font-family: Calibri, sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        text-decoration: none;
+        font-size: 7pt;
+    }
+    .s7 {
+        color: #444;
+        font-family: "Trebuchet MS", sans-serif;
+        font-style: italic;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: 7.5pt;
+    }
+    h1 {
+        color: black;
+        font-family: "Times New Roman", serif;
+        font-style: normal;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: 10pt;
+    }
+    .h2 {
+        color: black;
+        font-family: "Times New Roman", serif;
+        font-style: normal;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: 8.5pt;
+    }
+    .s8 {
+        color: black;
+        font-family: Calibri, sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        text-decoration: none;
+        font-size: 7pt;
+    }
+    .s9 {
+        color: black;
+        font-family: Calibri, sans-serif;
+        font-style: italic;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: 11.5pt;
+    }
+    .s10 {
+        color: black;
+        font-family: Calibri, sans-serif;
+        font-style: italic;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: 22.5pt;
+    }
+    .s11 {
+        color: black;
+        font-family: Calibri, sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        text-decoration: none;
+        font-size: 30.5pt;
+    }
+    .b-w {
+        background-color: #ffffff;
+    }
+    table,
+    tbody {
+        vertical-align: top;
+        overflow: visible;
+    }
+    header {
+        text-align: left;
+        text-indent: 0pt;
+        p {
+            .opera-pdf-institution {
+                padding-top: 4pt;
+                padding-left: 88pt;
+                line-height: 160%;
+            }
+            .opera-pdf-title {
+                padding-left: 88pt;
+                line-height: 160%;
+            }
+        }
+    }
+    body {
+        table {
+            border-collapse: collapse;
+            text-indent: 0pt;
+            width: 900pt;
+            td {
+                border: 1pt solid;
+            }
+            thead {
+                background-color: #D0CECE;
+                td {
+                    text-align: center;
+                }
+                .opera-title-type {
+                    tr {
+                        height: 20pt;
+                    }
+                    td {
+                        p {
+                            line-height: 20pt;
+                            text-align: center;
+                        }
+                    }
+                }
+                .opera-subtitle-result {
+                    tr {
+                        height: 16pt;
+                    }
+                    .opera-subtitle-w {
+                        td {
+                            // width: 54pt;
+                        }
+                    }
+                }
+                .opera-space-total {
+                    tr {
+                        height: 15pt;
+                    }
+                    td {
+                        // width: 54pt;
+                        p {
+                            line-height: 15pt;
+                        }
+                    }
+                    .opera-space-total-indicators-result {
+                        // width: 79pt;
+                    }
+                }
+                .opera-result-head {
+                    tr {
+                        height: 15pt;
+                    }
+                    td {
+                        width: 20pt;
+                        p {
+                            line-height: 15pt;
+                        }
+                    }
+                    td:nth-child(2) {
+                        width: 150pt;
+                    }
+                }
+            }
+            tbody {
+                background-color: #ffffff;
+                text-align: center;
+                tr:nth-child(even) {
+                    background-color: #F1F1F1;
+                }
+            }
+        }
+    }
+}

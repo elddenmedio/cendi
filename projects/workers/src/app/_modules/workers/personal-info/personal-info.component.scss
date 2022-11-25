@@ -5,8 +5,11 @@
         padding: 15px;
          ::ng-deep {
             .p-avatar.p-avatar-xl {
-                width: 20vh !important;
-                height: 18vw !important;
+                width: 20vw !important;
+                height: 18vh !important;
+                @media screen and (max-width: 500px) {
+                    width: 40vw !important;
+                }
             }
         }
     }

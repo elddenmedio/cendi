@@ -9,7 +9,6 @@ import { SecureLocalModule } from 'secure-local';
 import { GeneralModule } from './_modules/general.module';
 
 import { AppComponent } from './app.component';
-
 import { HelpComponent } from './_components/help/help.component';
 import { NavbarComponent } from './_components/_generals/navbar/navbar.component';
 import { SidebarComponent } from './_components/_generals/sidebar/sidebar.component';
@@ -17,6 +16,7 @@ import { FooterComponent } from './_components/_generals/footer/footer.component
 import { CalendarComponent } from './_components/calendar/calendar.component';
 import { LoginComponent } from './_components/login/login.component';
 import { ProfileComponent } from './_components/_generals/profile/profile.component';
+import { LogoutComponent } from './_components/_generals/logout/logout.component';
 
 
 @NgModule({
@@ -28,7 +28,8 @@ import { ProfileComponent } from './_components/_generals/profile/profile.compon
     SidebarComponent,
     FooterComponent,
     CalendarComponent,
-    ProfileComponent
+    ProfileComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,

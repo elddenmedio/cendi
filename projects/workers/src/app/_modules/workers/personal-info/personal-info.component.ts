@@ -189,14 +189,15 @@ export class PersonalInfoComponent implements OnInit, OnDestroy {
               succ => {
                 this.messageService.add({ key: 'tr', severity: 'success', summary: '', detail: succ });
                 //this.secureLocalService.setStorage('toast', { name: 'toast', value: { type: 'success', message: succ } });
+
+                // this.secureLocalService.setStorage('blockedPanel', { name: 'blockedPanel', value: false });
+                this.router.navigate([`/workers/personal-info/${this.user.uID}`], { relativeTo: this.route });
               },
               err => {
                 debugger
               },
               () => {
                 this.blockedPanel = false;
-                // this.secureLocalService.setStorage('blockedPanel', { name: 'blockedPanel', value: false });
-                this.router.navigate([`/workers/personal-info/${this.user.uID}`], { relativeTo: this.route });
               }
             );
         } else {
